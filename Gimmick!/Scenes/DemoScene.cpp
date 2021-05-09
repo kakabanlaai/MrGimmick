@@ -31,10 +31,15 @@ void DemoScene::LoadContent()
 
     mMap->SetCamera(mCamera);
 
+    mPlayer = new Player();
+    mPlayer->SetPosition(GAME_SCREEN_WIDTH / 2, GAME_SCREEN_HEIGHT / 2);
+
 }
 
 void DemoScene::Update(float dt)
 {
+    mPlayer->HandleKeyboard(keys);
+    mPlayer->Update(dt);
     mMap->Update(dt);
 }
 
@@ -42,36 +47,39 @@ void DemoScene::Draw()
 {
     mMap->Draw();
     mBlackBoard->Draw();
+    mPlayer->Draw();
 }
 
 void DemoScene::OnKeyDown(int keyCode)
 {
-    if (keyCode == VK_LEFT)
-    {
-        mCamera->SetPosition(mCamera->GetPosition() + D3DXVECTOR3(-32, 0, 0));
-    }
+    //if (keyCode == VK_LEFT)
+    //{
+    //    mCamera->SetPosition(mCamera->GetPosition() + D3DXVECTOR3(-32, 0, 0));
+    //}
 
-    if (keyCode == VK_RIGHT)
-    {
-        mCamera->SetPosition(mCamera->GetPosition() + D3DXVECTOR3(32, 0, 0));
-    }
+    //if (keyCode == VK_RIGHT)
+    //{
+    //    mCamera->SetPosition(mCamera->GetPosition() + D3DXVECTOR3(32, 0, 0));
+    //}
 
-    if (keyCode == VK_UP)
-    {
-        mCamera->SetPosition(mCamera->GetPosition() + D3DXVECTOR3(0, -32, 0));
-    }
+    //if (keyCode == VK_UP)
+    //{
+    //    mCamera->SetPosition(mCamera->GetPosition() + D3DXVECTOR3(0, -32, 0));
+    //}
 
-    if (keyCode == VK_DOWN)
-    {
-        mCamera->SetPosition(mCamera->GetPosition() + D3DXVECTOR3(0, 32, 0));
-    }
+    //if (keyCode == VK_DOWN)
+    //{
+    //    mCamera->SetPosition(mCamera->GetPosition() + D3DXVECTOR3(0, 32, 0));
+    //}
 
     keys[keyCode] = true;
+    mPlayer->OnKeyPressed(keyCode);
 }
 
 void DemoScene::OnKeyUp(int keyCode)
 {
     keys[keyCode] = false;
+    mPlayer->OnKeyUp(keyCode);
 }
 
 void DemoScene::OnMouseDown(float x, float y)

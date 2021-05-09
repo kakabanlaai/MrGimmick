@@ -11,6 +11,7 @@
 #include "../GameComponents/GameMap.h"
 #include "../GameComponents/Camera.h"
 #include "../GameDefines/GameDefine.h"
+#include "../GameObjects/Player/Player.h"
 
 class DemoScene : public Scene
 {
@@ -26,9 +27,10 @@ public:
     void OnMouseDown(float x, float y);
 
 protected:
-    GameMap *mMap;
-    Camera *mCamera;
+    GameMap* mMap;
+    Camera* mCamera;
     Sprite* mBlackBoard;
+    Player* mPlayer;
 
     float mTimeCounter;
 
