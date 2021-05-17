@@ -11,7 +11,7 @@ Player::Player()
     this->mPlayerData = new PlayerData();
     this->mPlayerData->player = this;
     this->vx = 0;
-    this->vy = 0;
+    this->vy = 50;
     this->SetState(new PlayerStandingState(this->mPlayerData));
 
     allowJump = true;
@@ -22,7 +22,7 @@ Player::~Player()
 }
 
 void Player::Update(float dt)
-{    
+{
     mCurrentAnimation->Update(dt);
 
     if (this->mPlayerData->state)
@@ -62,6 +62,11 @@ void Player::SetAllowJump(bool _allowJump)
     this->allowJump = _allowJump;
 }
 
+void Player::OnCollision(Entity* impactor, Entity::CollisionReturn data, Entity::SideCollisions side)
+{
+    this->mPlayerData->state->OnCollision(impactor, side, data);
+ }
+
 
 
 void Player::Draw(D3DXVECTOR3 position, RECT sourceRect, D3DXVECTOR2 scale, D3DXVECTOR2 transform, float angle, D3DXVECTOR2 rotationCenter, D3DXCOLOR colorKey)
@@ -72,7 +77,7 @@ void Player::Draw(D3DXVECTOR3 position, RECT sourceRect, D3DXVECTOR2 scale, D3DX
     mCurrentAnimation->Draw(D3DXVECTOR3(posX, posY, 0));
 }
 
-void Player::SetState(PlayerState *newState)
+void Player::SetState(PlayerState* newState)
 {
     delete this->mPlayerData->state;
 
@@ -98,21 +103,21 @@ void Player::changeAnimation(PlayerState::StateName state)
 {
     switch (state)
     {
-        case PlayerState::Running:
-            mCurrentAnimation = mAnimationRunning;
-            break;
+    case PlayerState::Running:
+        mCurrentAnimation = mAnimationRunning;
+        break;
 
-        case PlayerState::Standing:
-            mCurrentAnimation = mAnimationStanding;
-            break;
+    case PlayerState::Standing:
+        mCurrentAnimation = mAnimationStanding;
+        break;
 
-        case PlayerState::Falling:
-            mCurrentAnimation = mAnimationJumping;
-            break;
+    case PlayerState::Falling:
+        mCurrentAnimation = mAnimationJumping;
+        break;
 
-        case PlayerState::Jumping:
-            mCurrentAnimation = mAnimationJumping;
-            break;
+    case PlayerState::Jumping:
+        mCurrentAnimation = mAnimationJumping;
+        break;
     }
 
     this->width = mCurrentAnimation->GetWidth();
