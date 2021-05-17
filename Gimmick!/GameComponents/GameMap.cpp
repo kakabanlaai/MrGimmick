@@ -40,12 +40,12 @@ void GameMap::LoadMap(const char* filePath)
     {
         const Tmx::TileLayer* layer = mMap->GetTileLayer(i);
 
-        //if (layer->IsVisible())
-            //continue;
+        if (layer->IsVisible())
+            continue;
 
         //xac dinh layer Brick bi an di de tu do tao ra cac vien gach trong game, nhung vien gach khong phai la 1 physic static nos co the bi pha huy duoc
 
-        if (layer->GetName() == "Brick" || layer->GetName() == "coin")
+        if (layer->GetName() == "brick" || layer->GetName() == "coin")
         {
             for (size_t j = 0; j < mMap->GetNumTilesets(); j++)
             {
@@ -68,7 +68,7 @@ void GameMap::LoadMap(const char* filePath)
                             int y = tileID / tileSetWidth;
                             int x = tileID - y * tileSetWidth;
 
-                            /*RECT sourceRECT;
+                            RECT sourceRECT;
                             sourceRECT.top = y * tileHeight;
                             sourceRECT.bottom = sourceRECT.top + tileHeight;
                             sourceRECT.left = x * tileWidth;
@@ -78,17 +78,22 @@ void GameMap::LoadMap(const char* filePath)
                             bound.left = n * tileWidth;
                             bound.top = m * tileHeight;
                             bound.right = bound.left + tileWidth;
-                            bound.bottom = bound.top + tileHeight;*/
+                            bound.bottom = bound.top + tileHeight;
 
-                            D3DXVECTOR3 position(n * tileWidth + tileWidth /2, m * tileHeight + tileHeight /2 - 32, 0);
+                            D3DXVECTOR3 position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2, 0);
 
                             Brick* brick = nullptr;
-                            brick = new BrickNormal(position);
-                            brick->SetHeight(32);
-                            brick->SetWidth(32);
-                            brick->Tag = Entity::EntityTypes::Brick;
-                            mListBricks.push_back(brick);
-                            
+
+                            if (layer->GetName() == "coin")
+                            {
+                                
+                            }
+                            else
+                            {
+                                brick = new BrickNormal(position);
+                                brick->Tag = Entity::EntityTypes::Brick;
+                                mListBricks.push_back(brick);
+                            }
 
 
                             if (brick)
@@ -116,7 +121,7 @@ void GameMap::LoadMap(const char* filePath)
 
             Entity* entity = new Entity();
             entity->SetPosition(object->GetX() + object->GetWidth() / 2,
-                object->GetY() + object->GetHeight() / 2);
+                object->GetY() + object->GetHeight() / 2 - 2 * 32);
             entity->SetWidth(object->GetWidth());
             entity->SetHeight(object->GetHeight());
             entity->Tag = Entity::EntityTypes::Static;
@@ -124,7 +129,6 @@ void GameMap::LoadMap(const char* filePath)
             mQuadTree->insertEntity(entity);
         }
     }
-    
 #pragma endregion
     LoadMap1Animation();
 }

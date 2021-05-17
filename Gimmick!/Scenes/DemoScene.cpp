@@ -32,7 +32,7 @@ void DemoScene::LoadContent()
     mMap->SetCamera(mCamera);
 
     mPlayer = new Player();
-    mPlayer->SetPosition(GAME_SCREEN_WIDTH / 2, GAME_SCREEN_HEIGHT / 2);
+    mPlayer->SetPosition(GAME_SCREEN_WIDTH / 2, GAME_SCREEN_HEIGHT / 2 );
 
 }
 
@@ -143,7 +143,7 @@ void DemoScene::checkCollision()
 
         if (r.IsCollided)
         {
-            //lay phia va cham cua Entity so voi Player
+             //lay phia va cham cua Entity so voi Player
             Entity::SideCollisions sidePlayer = GameCollision::getSideCollision(mPlayer, r);
 
             //lay phia va cham cua Player so voi Entity

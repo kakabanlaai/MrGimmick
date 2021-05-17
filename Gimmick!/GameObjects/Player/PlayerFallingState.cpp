@@ -9,14 +9,14 @@ PlayerFallingState::PlayerFallingState(PlayerData* playerData)
     acceleratorY = 15.0f;
     acceleratorX = 8.0f;
 
-    if (this->mPlayerData->player->GetVx() == 0)
+    /*if (this->mPlayerData->player->GetVx() == 0)
     {
         allowMoveX = false;
     }
     else
     {
         allowMoveX = true;
-    }
+    }*/
 }
 
 
@@ -28,10 +28,10 @@ void PlayerFallingState::Update(float dt)
 {
     this->mPlayerData->player->AddVy(acceleratorY);
 
-    /*if (mPlayerData->player->GetVy() > Define::PLAYER_MAX_JUMP_VELOCITY)
+    if (mPlayerData->player->GetVy() > Define::PLAYER_MAX_JUMP_VELOCITY)
     {
         mPlayerData->player->SetVy(Define::PLAYER_MAX_JUMP_VELOCITY);
-    }*/
+    }
 }
 
 void PlayerFallingState::HandleKeyboard(std::map<int, bool> keys)
@@ -86,7 +86,6 @@ void PlayerFallingState::OnCollision(Entity* impactor, Entity::SideCollisions si
         {
             this->mPlayerData->player->AddPosition(data.RegionCollision.right - data.RegionCollision.left, 0);
             this->mPlayerData->player->SetVx(0);
-            this->mPlayerData->player->SetVy(10);
         }
         break;
 
@@ -95,19 +94,15 @@ void PlayerFallingState::OnCollision(Entity* impactor, Entity::SideCollisions si
         {
             this->mPlayerData->player->AddPosition(-(data.RegionCollision.right - data.RegionCollision.left), 0);
             this->mPlayerData->player->SetVx(0);
-            this->mPlayerData->player->SetVy(10);
         }
         break;
 
     case Entity::Top:
-        this->mPlayerData->player->SetVy(10);
         break;
 
     case Entity::Bottom:
-
     case Entity::BottomRight:
     case Entity::BottomLeft:
-        this->mPlayerData->player->SetVy(0);
         if (data.RegionCollision.right - data.RegionCollision.left >= 8.0f)
         {
             this->mPlayerData->player->AddPosition(0, -(data.RegionCollision.bottom - data.RegionCollision.top));
@@ -124,7 +119,6 @@ void PlayerFallingState::OnCollision(Entity* impactor, Entity::SideCollisions si
         return;
 
     default:
-        this->mPlayerData->player->SetVy(10);
         break;
     }
 }

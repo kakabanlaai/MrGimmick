@@ -19,14 +19,14 @@ PlayerStandingState::~PlayerStandingState()
 
 void PlayerStandingState::HandleKeyboard(std::map<int, bool> keys)
 {
-    if (keys[VK_SPACE] && this->mPlayerData->player->GetAllowJump())
-    {
-        this->mPlayerData->player->SetState(new PlayerJumpingState(this->mPlayerData));
-        return;
-    }
     if (keys[VK_LEFT] || keys[VK_RIGHT])
     {
         this->mPlayerData->player->SetState(new PlayerRunningState(this->mPlayerData));
+        return;
+    }
+    if (keys[VK_SPACE] && this->mPlayerData->player->GetAllowJump())
+    {
+        this->mPlayerData->player->SetState(new PlayerJumpingState(this->mPlayerData));
         return;
     }
 }
@@ -35,3 +35,4 @@ PlayerState::StateName PlayerStandingState::GetState()
 {
     return PlayerState::Standing;
 }
+
