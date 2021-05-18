@@ -5,7 +5,7 @@
 #include "../../GameDefines/GameDefine.h"
 #include "../../GameComponents/GameLog.h"
 
-PlayerStandingState::PlayerStandingState(PlayerData* playerData)
+PlayerStandingState::PlayerStandingState(PlayerData *playerData)
 {
     this->mPlayerData = playerData;
     this->mPlayerData->player->SetVx(0);
@@ -17,9 +17,14 @@ PlayerStandingState::~PlayerStandingState()
 {
 }
 
+void PlayerStandingState::Update(float dt)
+{
+
+}
+
 void PlayerStandingState::HandleKeyboard(std::map<int, bool> keys)
 {
-    if (keys[VK_SPACE] && this->mPlayerData->player->GetAllowJump())
+    if (keys[VK_SPACE] && this->mPlayerData->player->GetAllowJump()) 
     {
         this->mPlayerData->player->SetState(new PlayerJumpingState(this->mPlayerData));
         return;

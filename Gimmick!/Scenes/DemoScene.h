@@ -25,8 +25,7 @@ public:
     void OnKeyDown(int keyCode);
     void OnKeyUp(int keyCode);
     void OnMouseDown(float x, float y);
-    void CheckCameraAndWorldMap();
-    void checkCollision();
+
 protected:
     GameMap* mMap;
     Camera* mCamera;

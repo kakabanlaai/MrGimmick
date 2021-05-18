@@ -5,7 +5,6 @@ using namespace Define;
 GameMap::GameMap(const char* filePath)
 {
     LoadMap(filePath);
-    mCamera = new Camera(GameGlobal::GetWidth(), GameGlobal::GetHeight());
 }
 
 GameMap::~GameMap()
@@ -24,108 +23,14 @@ void GameMap::LoadMap(const char* filePath)
     r.right = this->GetWidth();
     r.bottom = this->GetHeight();
 
-    mQuadTree = new QuadTree(1, r);
-
     for (size_t i = 0; i < mMap->GetNumTilesets(); i++)
     {
-        const Tmx::Tileset* tileset = mMap->GetTileset(i);
+        const Tmx::Tileset *tileset = mMap->GetTileset(i);
 
-        Sprite* sprite = new Sprite(tileset->GetImage()->GetSource().c_str());
-        mListTileset.insert(pair<int, Sprite*>(i, sprite));
+        Sprite* sprite = new Sprite(tileset->GetImage()->GetSource().c_str(), RECT(), 0, 0, 0xff000000);
+
+        mListTileset.insert(std::pair<int, Sprite*>(i, sprite));
     }
-
-    //khoi tao cac khoi Brick (vien gach)
-#pragma region -BRICK AND COIN LAYER-
-    for (size_t i = 0; i < GetMap()->GetNumTileLayers(); i++)
-    {
-        const Tmx::TileLayer* layer = mMap->GetTileLayer(i);
-
-        //if (layer->IsVisible())
-            //continue;
-
-        //xac dinh layer Brick bi an di de tu do tao ra cac vien gach trong game, nhung vien gach khong phai la 1 physic static nos co the bi pha huy duoc
-
-        if (layer->GetName() == "Brick" || layer->GetName() == "coin")
-        {
-            for (size_t j = 0; j < mMap->GetNumTilesets(); j++)
-            {
-                const Tmx::Tileset* tileSet = mMap->GetTileset(j);
-
-                int tileWidth = mMap->GetTileWidth();
-                int tileHeight = mMap->GetTileHeight();
-
-                int tileSetWidth = tileSet->GetImage()->GetWidth() / tileWidth;
-                int tileSetHeight = tileSet->GetImage()->GetHeight() / tileHeight;
-
-                for (size_t n = 0; n < layer->GetWidth(); n++)
-                {
-                    for (size_t m = 0; m < layer->GetHeight(); m++)
-                    {
-                        if (layer->GetTileTilesetIndex(n, m) != -1)
-                        {
-                           /* int tileID = layer->GetTileId(n, m);
-
-                            int y = tileID / tileSetWidth;
-                            int x = tileID - y * tileSetWidth;*/
-
-                            /*RECT sourceRECT;
-                            sourceRECT.top = y * tileHeight;
-                            sourceRECT.bottom = sourceRECT.top + tileHeight;
-                            sourceRECT.left = x * tileWidth;
-                            sourceRECT.right = sourceRECT.left + tileWidth;
-
-                            RECT bound;
-                            bound.left = n * tileWidth;
-                            bound.top = m * tileHeight;
-                            bound.right = bound.left + tileWidth;
-                            bound.bottom = bound.top + tileHeight;*/
-
-                            D3DXVECTOR3 position(n * tileWidth + tileWidth /2, m * tileHeight + tileHeight /2 , 0);
-
-                            Brick* brick = nullptr;
-                            brick = new BrickNormal(position);
-                            brick->SetHeight(tileHeight);
-                            brick->SetWidth(tileWidth);
-                            brick->Tag = Entity::EntityTypes::Brick;
-                            mListBricks.push_back(brick);
-                            
-
-
-                            if (brick)
-                                mQuadTree->insertEntity(brick);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-#pragma endregion
-
-#pragma region -OBJECTGROUP, STATIC OBJECT-
-
-    for (size_t i = 0; i < mMap->GetNumObjectGroups(); i++)
-    {
-        const Tmx::ObjectGroup* objectGroup = mMap->GetObjectGroup(i);
-
-        for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
-        {
-            //lay object group chu khong phai layer
-            //object group se chua nhung body
-            Tmx::Object* object = objectGroup->GetObjects().at(j);
-
-            Entity* entity = new Entity();
-            entity->SetPosition(object->GetX() + object->GetWidth() / 2,
-                object->GetY() + object->GetHeight() / 2);
-            entity->SetWidth(object->GetWidth());
-            entity->SetHeight(object->GetHeight());
-            entity->Tag = Entity::EntityTypes::Static;
-
-            mQuadTree->insertEntity(entity);
-        }
-    }
-    
-#pragma endregion
     LoadMap1Animation();
 }
 
@@ -275,8 +180,10 @@ void GameMap::DrawAnimation(const Tmx::TileLayer *layer, D3DXVECTOR2 trans)
 
 void GameMap::Draw()
 {
-    D3DXVECTOR2 trans = D3DXVECTOR2(GameGlobal::GetWidth() / 2 - mCamera->GetPosition().x,
-                                    mCamera->GetHeight() / 2 - mCamera->GetPosition().y);
+    //D3DXVECTOR2 trans = D3DXVECTOR2(GameGlobal::GetWidth() / 2 - mCamera->GetPosition().x,
+    //                                mCamera->GetHeight() / 2 - mCamera->GetPosition().y);
+    D3DXVECTOR2 trans = D3DXVECTOR2((int)(GameGlobal::GetWidth() / 2 - mCamera->GetPosition().x),
+        (int)(mCamera->GetHeight() / 2 - mCamera->GetPosition().y));
 
 
     for (size_t i = 0; i < mMap->GetNumTileLayers(); i++)
@@ -345,6 +252,7 @@ void GameMap::Draw()
                     sprite->SetHeight(tileHeight);
 
                     sprite->Draw(position, sourceRECT, D3DXVECTOR2(), trans);
+                    //sprite->Draw(position, sourceRECT);
                 }
             }
         }
@@ -362,29 +270,4 @@ void GameMap::Update(float dt)
     for (i = mListAnimation.begin(); i != mListAnimation.end(); i++) {
         (*i).second->Update(dt);
     }
-}
-
-bool GameMap::IsBoundLeft()
-{
-    return (mCamera->GetBound().left == 0);
-}
-
-bool GameMap::IsBoundRight()
-{
-    return (mCamera->GetBound().right == this->GetWidth());
-}
-
-bool GameMap::IsBoundTop()
-{
-    return (mCamera->GetBound().top == 0);
-}
-
-bool GameMap::IsBoundBottom()
-{
-    return (mCamera->GetBound().bottom == this->GetHeight());
-}
-
-QuadTree* GameMap::GetQuadTree()
-{
-    return mQuadTree;
 }

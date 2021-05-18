@@ -24,12 +24,10 @@ public:
     //ham thuan ao bat buoc phai ke thua
     virtual StateName GetState() = 0;
 
-    virtual void OnCollision(Entity* impactor, Entity::SideCollisions side, Entity::CollisionReturn data);
 protected:
-    PlayerState(PlayerData* playerData);
+    PlayerState(PlayerData *playerData);
     PlayerState();
 
-    PlayerData* mPlayerData;
+    PlayerData *mPlayerData;
 };
-
 
