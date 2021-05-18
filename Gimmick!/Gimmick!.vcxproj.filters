@@ -37,6 +37,9 @@
     <Filter Include="FrameWork\GameObjects\Player">
       <UniqueIdentifier>{d85f18ee-c0ba-40c9-aef0-461375427c58}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FrameWork\GameObjects\MapObject">
+      <UniqueIdentifier>{bbcef50e-d9c4-41b2-9da8-bf41874411c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -159,20 +162,11 @@
     <ClCompile Include="GameComponents\GameLog.cpp">
       <Filter>FrameWork\GameComponents</Filter>
     </ClCompile>
-    <ClCompile Include="QuadTree.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="GameObjects\MapObjects\DynamicObject.cpp">
+      <Filter>FrameWork\GameObjects\MapObject</Filter>
     </ClCompile>
-    <ClCompile Include="GameCollision.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BrickNormal.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="GameObjects\MapObjects\GameObject.cpp">
+      <Filter>FrameWork\GameObjects\MapObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -311,20 +305,11 @@
     <ClInclude Include="GameObjects\Entity.h">
       <Filter>FrameWork\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="QuadTree.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GameObjects\MapObjects\DynamicObject.h">
+      <Filter>FrameWork\GameObjects\MapObject</Filter>
     </ClInclude>
-    <ClInclude Include="GameCollision.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BrickNormal.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GameObjects\MapObjects\GameObject.h">
+      <Filter>FrameWork\GameObjects\MapObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

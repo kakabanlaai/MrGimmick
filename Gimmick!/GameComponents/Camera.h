@@ -11,6 +11,7 @@ public:
     //center of camera
     void SetPosition(float x, float y);
     void SetPosition(D3DXVECTOR3 pos);
+
     int GetWidth();
     int GetHeight();
 
