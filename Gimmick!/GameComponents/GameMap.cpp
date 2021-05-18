@@ -180,10 +180,8 @@ void GameMap::DrawAnimation(const Tmx::TileLayer *layer, D3DXVECTOR2 trans)
 
 void GameMap::Draw()
 {
-    //D3DXVECTOR2 trans = D3DXVECTOR2(GameGlobal::GetWidth() / 2 - mCamera->GetPosition().x,
-    //                                mCamera->GetHeight() / 2 - mCamera->GetPosition().y);
-    D3DXVECTOR2 trans = D3DXVECTOR2((int)(GameGlobal::GetWidth() / 2 - mCamera->GetPosition().x),
-        (int)(mCamera->GetHeight() / 2 - mCamera->GetPosition().y));
+    D3DXVECTOR2 trans = D3DXVECTOR2(GameGlobal::GetWidth() / 2 - mCamera->GetPosition().x,
+                                    mCamera->GetHeight() / 2 - mCamera->GetPosition().y);
 
 
     for (size_t i = 0; i < mMap->GetNumTileLayers(); i++)
@@ -252,7 +250,6 @@ void GameMap::Draw()
                     sprite->SetHeight(tileHeight);
 
                     sprite->Draw(position, sourceRECT, D3DXVECTOR2(), trans);
-                    //sprite->Draw(position, sourceRECT);
                 }
             }
         }
