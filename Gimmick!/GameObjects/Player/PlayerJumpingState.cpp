@@ -9,10 +9,12 @@ PlayerJumpingState::PlayerJumpingState(PlayerData* playerData)
     this->mPlayerData = playerData;
     this->mPlayerData->player->SetVy(Define::PLAYER_MIN_JUMP_VELOCITY);
 
-    acceleratorY = 15.0f;
-    acceleratorX = 14.0f;
+    acceleratorY = -3.0f;
+    acceleratorX = 2.5f;
 
     noPressed = false;
+    this->mPlayerData->player->SetAllowJump(false);
+    this->standingPosition = this->mPlayerData->player->GetPosition();
 }
 
 
@@ -23,15 +25,6 @@ PlayerJumpingState::~PlayerJumpingState()
 
 void PlayerJumpingState::Update(float dt)
 {
-    this->mPlayerData->player->AddVy(acceleratorY);
-
-    if (mPlayerData->player->GetVy() >= 0)
-    {
-        mPlayerData->player->SetState(new PlayerFallingState(this->mPlayerData));
-
-        return;
-    }
-
     if (noPressed)
     {
         if (mPlayerData->player->getMoveDirection() == Player::MoveToLeft)
@@ -61,6 +54,20 @@ void PlayerJumpingState::Update(float dt)
 
 void PlayerJumpingState::HandleKeyboard(std::map<int, bool> keys)
 {
+    if (keys[VK_SPACE])
+    {
+        if (this->standingPosition.y - this->mPlayerData->player->GetPosition().y > 1570)
+        {
+            mPlayerData->player->SetState(new PlayerFallingState(this->mPlayerData));
+            return;
+        }
+    }
+    else
+    {
+        mPlayerData->player->SetState(new PlayerFallingState(this->mPlayerData));
+        return;
+    }
+
     if (keys[VK_RIGHT])
     {
         mPlayerData->player->SetReverse(false);
@@ -101,6 +108,12 @@ void PlayerJumpingState::HandleKeyboard(std::map<int, bool> keys)
     }
 }
 
+PlayerState::StateName PlayerJumpingState::GetState()
+{
+    return PlayerState::Jumping;
+}
+
+
 void PlayerJumpingState::OnCollision(Entity* impactor, Entity::SideCollisions side, Entity::CollisionReturn data)
 {
     switch (side)
@@ -134,10 +147,5 @@ void PlayerJumpingState::OnCollision(Entity* impactor, Entity::SideCollisions si
     default:
         break;
     }
-}
-
-PlayerState::StateName PlayerJumpingState::GetState()
-{
-    return PlayerState::Jumping;
 }
 

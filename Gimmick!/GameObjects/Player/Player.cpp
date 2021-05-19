@@ -75,7 +75,8 @@ void Player::Draw(D3DXVECTOR3 position, RECT sourceRect, D3DXVECTOR2 scale, D3DX
     mCurrentAnimation->SetPosition(this->GetPosition());
     D3DXVECTOR2 tran = D3DXVECTOR2(GameGlobal::GetWidth() / 2 - mCamera->GetPosition().x,
         mCamera->GetHeight() / 2 - mCamera->GetPosition().y);
-    mCurrentAnimation->Draw(D3DXVECTOR3(posX, posY, 0), sourceRect, scale, tran, angle, rotationCenter, colorKey);
+    
+    mCurrentAnimation->Draw(mCamera->tranform(posX, posY), sourceRect, scale, transform, angle, rotationCenter, colorKey);
 }
 
 void Player::SetState(PlayerState* newState)

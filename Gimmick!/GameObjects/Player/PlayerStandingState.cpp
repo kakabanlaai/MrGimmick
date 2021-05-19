@@ -17,6 +17,7 @@ PlayerStandingState::~PlayerStandingState()
 {
 }
 
+
 void PlayerStandingState::HandleKeyboard(std::map<int, bool> keys)
 {
     if (keys[VK_SPACE] && this->mPlayerData->player->GetAllowJump())

@@ -49,6 +49,7 @@ private:
     std::map<int, Animation*> mListAnimation;
     QuadTree* mQuadTree;
     std::vector<Brick*>             mListBricks;
+    long mapHeight;
 };
 
 #endif

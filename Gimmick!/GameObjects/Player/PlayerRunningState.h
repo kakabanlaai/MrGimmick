@@ -9,6 +9,8 @@ public:
     PlayerRunningState(PlayerData* playerData);
     ~PlayerRunningState();
 
+    void Update(float dt);
+
     void HandleKeyboard(std::map<int, bool> keys);
 
     void OnCollision(Entity* impactor, Entity::SideCollisions side, Entity::CollisionReturn data);
@@ -17,5 +19,6 @@ public:
 
 protected:
     float acceleratorX;
+    bool noPressed;
 };
 

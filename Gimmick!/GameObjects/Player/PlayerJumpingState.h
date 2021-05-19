@@ -17,6 +17,7 @@ public:
     virtual StateName GetState();
 
 protected:
+    D3DXVECTOR3 standingPosition;
     float acceleratorY;
     float acceleratorX;
     bool noPressed;
