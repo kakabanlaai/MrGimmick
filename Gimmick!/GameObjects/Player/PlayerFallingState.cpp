@@ -19,7 +19,7 @@ void PlayerFallingState::Update(float dt)
 {
 	this->mPlayerData->player->AddVy(acceleratorY);
 
-	if (mPlayerData->player->GetVy() > Define::PLAYER_MAX_JUMP_VELOCITY)
+	if (mPlayerData->player->GetVy() < Define::PLAYER_MAX_JUMP_VELOCITY)
 	{
 		mPlayerData->player->SetVy(Define::PLAYER_MAX_JUMP_VELOCITY);
 	}

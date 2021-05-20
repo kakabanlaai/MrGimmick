@@ -47,7 +47,7 @@ void DemoScene::Update(float dt)
     mPlayer->HandleKeyboard(keys);
     mPlayer->Update(dt);
    
-    mCamera->SetPosition(mPlayer->GetPosition());
+    //mCamera->SetPosition(mPlayer->GetPosition());
    
    
     
