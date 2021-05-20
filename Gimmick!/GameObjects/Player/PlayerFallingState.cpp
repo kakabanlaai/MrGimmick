@@ -81,7 +81,7 @@ void PlayerFallingState::OnCollision(Entity* impactor, Entity::SideCollisions si
         {
             this->mPlayerData->player->AddPosition(data.RegionCollision.right - data.RegionCollision.left, 0);
             this->mPlayerData->player->SetVx(0);
-            this->mPlayerData->player->SetVy(-10);
+            this->mPlayerData->player->SetVy(-350.0f);
         }
         break;
 
@@ -90,7 +90,7 @@ void PlayerFallingState::OnCollision(Entity* impactor, Entity::SideCollisions si
         {
             this->mPlayerData->player->AddPosition(-(data.RegionCollision.right - data.RegionCollision.left), 0);
             this->mPlayerData->player->SetVx(0);
-            this->mPlayerData->player->SetVy(-10);
+            this->mPlayerData->player->SetVy(-350.0f);
         }
         break;
 

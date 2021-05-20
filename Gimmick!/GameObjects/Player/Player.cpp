@@ -72,11 +72,11 @@ void Player::OnCollision(Entity* impactor, Entity::CollisionReturn data, Entity:
 void Player::Draw(D3DXVECTOR3 position, RECT sourceRect, D3DXVECTOR2 scale, D3DXVECTOR2 transform, float angle, D3DXVECTOR2 rotationCenter, D3DXCOLOR colorKey)
 {
     mCurrentAnimation->FlipVertical(mCurrentReverse);
-    mCurrentAnimation->SetPosition(this->GetPosition());
+    mCurrentAnimation->SetPosition(mCamera->tranform(posX, posY));
     D3DXVECTOR2 tran = D3DXVECTOR2(GameGlobal::GetWidth() / 2 - mCamera->GetPosition().x,
         mCamera->GetHeight() / 2 - mCamera->GetPosition().y);
-    
-    mCurrentAnimation->Draw(mCamera->tranform(posX, posY), sourceRect, scale, transform, angle, rotationCenter, colorKey);
+    mCurrentAnimation->Draw();
+    //mCurrentAnimation->Draw(, sourceRect, scale, transform, angle, rotationCenter, colorKey);
 }
 
 void Player::SetState(PlayerState* newState)

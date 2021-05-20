@@ -101,7 +101,7 @@ void PlayerRunningState::HandleKeyboard(std::map<int, bool> keys)
         {
             this->mPlayerData->player->AddVx(-acceleratorX);
 
-            if (this->mPlayerData->player->GetVx() < -Define::PLAYER_MAX_RUNNING_SPEED)
+            if (this->mPlayerData->player->GetVx() <= -Define::PLAYER_MAX_RUNNING_SPEED)
             {
                 this->mPlayerData->player->SetVx(-Define::PLAYER_MAX_RUNNING_SPEED);
             }
@@ -112,6 +112,8 @@ void PlayerRunningState::HandleKeyboard(std::map<int, bool> keys)
     {
         noPressed = true;
     }
+
+    GAMELOG("x: %f, y: %f", this->mPlayerData->player->GetPosition().x, this->mPlayerData->player->GetPosition().y);
 }
 
 PlayerState::StateName PlayerRunningState::GetState()

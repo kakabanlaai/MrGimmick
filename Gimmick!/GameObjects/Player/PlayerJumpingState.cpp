@@ -56,7 +56,7 @@ void PlayerJumpingState::HandleKeyboard(std::map<int, bool> keys)
 {
     if (keys[VK_SPACE])
     {
-        if (this->standingPosition.y - this->mPlayerData->player->GetPosition().y > 1570)
+        if (this->mPlayerData->player->GetPosition().y - this->standingPosition.y > 100)
         {
             mPlayerData->player->SetState(new PlayerFallingState(this->mPlayerData));
             return;

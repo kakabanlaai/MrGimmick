@@ -43,14 +43,15 @@ void DemoScene::LoadContent()
 void DemoScene::Update(float dt)
 {
     checkCollision();
+    mMap->Update(dt);
     mPlayer->HandleKeyboard(keys);
     mPlayer->Update(dt);
    
     mCamera->SetPosition(mPlayer->GetPosition());
    
    
-    mMap->Update(dt);
-   // CheckCameraAndWorldMap();
+    
+   //CheckCameraAndWorldMap();
 }
 
 void DemoScene::Draw()
