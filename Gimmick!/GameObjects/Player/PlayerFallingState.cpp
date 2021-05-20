@@ -98,14 +98,15 @@ void PlayerFallingState::OnCollision(Entity* impactor, Entity::SideCollisions si
         {
             this->mPlayerData->player->AddPosition(0, -(data.RegionCollision.bottom - data.RegionCollision.top));
 
-            if (isLeftOrRightKeyPressed)
+            this->mPlayerData->player->SetState(new PlayerRunningState(this->mPlayerData));
+            /*if (isLeftOrRightKeyPressed)
             {
                 this->mPlayerData->player->SetState(new PlayerRunningState(this->mPlayerData));
             }
             else
             {
                 this->mPlayerData->player->SetState(new PlayerStandingState(this->mPlayerData));
-            }
+            }*/
         }
         return;
 

@@ -1,5 +1,5 @@
 #include "QuadTree.h"
-#include "GameComponents/GameGlobal.h"
+#include "GameGlobal.h"
 
 QuadTree::~QuadTree()
 {

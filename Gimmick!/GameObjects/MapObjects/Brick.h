@@ -1,7 +1,7 @@
 #pragma once
 
-#include "GameComponents/Animation.h"
-#include "GameObjects/Entity.h"
+#include "../../GameComponents/Animation.h"
+#include "../Entity.h"
 #include "GameObject.h"
 
 //vien gach
