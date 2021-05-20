@@ -1,5 +1,4 @@
 #include "Entity.h"
-#include "../GameCollision.h"
 
 Entity::Entity()
 {
@@ -21,11 +20,6 @@ RECT Entity::GetBound()
     bound.bottom = posY + height / 2;
 
     return bound;
-}
-
-void Entity::OnCollision(Entity* impactor, CollisionReturn data, Entity::SideCollisions side)
-{
-    vx = 0, vy = 0;
 }
 
 void Entity::OnSetPosition(D3DXVECTOR3 pos)
@@ -53,7 +47,7 @@ void Entity::SetPosition(D3DXVECTOR2 pos)
 void Entity::SetPosition(D3DXVECTOR3 pos)
 {
     this->posX = pos.x;
-    this->posY = pos.y;
+    this->posY = pos.y; 
 
     OnSetPosition(pos);
 }

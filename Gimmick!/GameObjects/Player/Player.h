@@ -9,13 +9,12 @@
 #include "PlayerData.h"
 #include "PlayerState.h"
 #include "PlayerRunningState.h"
-#include"../../GameComponents/Camera.h";
+
 class Player : public Entity
 {
 public:
     Player();
     ~Player();
-
 
     enum MoveDirection
     {
@@ -28,11 +27,11 @@ public:
 
     void Draw(D3DXVECTOR3 position = D3DXVECTOR3(), RECT sourceRect = RECT(), D3DXVECTOR2 scale = D3DXVECTOR2(), D3DXVECTOR2 transform = D3DXVECTOR2(), float angle = 0, D3DXVECTOR2 rotationCenter = D3DXVECTOR2(), D3DXCOLOR colorKey = D3DCOLOR_XRGB(255, 255, 255));
 
-    void SetState(PlayerState* newState);
+    void SetState(PlayerState *newState);
 
     MoveDirection getMoveDirection();
 
-    RECT GetBound();
+    RECT GetBound();     
 
     PlayerState::StateName getState();
 
@@ -49,24 +48,20 @@ public:
 
     void SetAllowJump(bool _allowJump);
     bool GetAllowJump() { return allowJump; }
-    void setCamera(Camera *m) ;
-    bool allowMoveLeft;
-    bool allowMoveRight;
-    void OnCollision(Entity* impactor, Entity::CollisionReturn data, Entity::SideCollisions side);
-protected:
-    PlayerData* mPlayerData;
 
-    Animation* mCurrentAnimation,
-        * mAnimationStanding,
-        * mAnimationRunning,
-        * mAnimationJumping;
+protected:
+    PlayerData *mPlayerData;
+
+    Animation   *mCurrentAnimation,
+                *mAnimationStanding,
+                *mAnimationRunning,
+                *mAnimationJumping;
 
     void changeAnimation(PlayerState::StateName state);
 
     PlayerState::StateName mCurrentState;
-    Camera * mCamera;
+
     //chi cho phep jump khi nhan nhim space, muon nhay lai phai tha phim space roi nhan lai
-    bool allowJump, mCurrentReverse;
-    ;
+    bool allowJump, mCurrentReverse;;
 };
 

@@ -61,9 +61,13 @@ namespace Define
         Waterfall12 = 221,
     };
 
-    const float PLAYER_MAX_JUMP_VELOCITY = -350.0f; //van toc nhay lon nhat
-    const float PLAYER_MIN_JUMP_VELOCITY = 350.0f; //van toc nhay thap nhat
-    const float PLAYER_MAX_RUNNING_SPEED = 150.0f; //toc do chay nhanh nhat cua player
-    const float PLAYER_BOTTOM_RANGE_FALLING = 8.0f; // do dai va cham voi bottom neu nhu va cham bottom nho hon thi player se bi roi xuong
+    const float PLAYER_MAX_JUMP_VELOCITY = 350.0f; 
+    const float PLAYER_MIN_JUMP_VELOCITY = -350.0f;
+    const float PLAYER_MAX_RUNNING_SPEED = 150.0f; 
+    const float PLAYER_BOTTOM_RANGE_FALLING = 8.0f; 
+    const float PLAYER_RUN_ACCELERATOR = 5.0f;
+    const float PLAYER_JUMP_ACCELERATOR_X = 10.0f;
+    const float PLAYER_DECREASE_JUMP_ACCELERATOR_X = 2.5f;
+    const float PLAYER_DECREASE_JUMP_ACCELERATOR_Y = 30.0f;
 }
 #endif // !__GAME_DEFINE__
