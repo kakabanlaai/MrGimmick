@@ -5,8 +5,6 @@ using namespace Define;
 PlayerRunningState::PlayerRunningState(PlayerData *playerData)
 {
     this->mPlayerData = playerData;
-}
-
 
     this->mPlayerData->player->allowMoveLeft = true;
     this->mPlayerData->player->allowMoveRight = true;
@@ -157,5 +155,10 @@ void PlayerRunningState::OnCollision(Entity* impactor, Entity::SideCollisions si
         return;
     }
     }
+}
+
+PlayerState::StateName PlayerRunningState::GetState()
+{
+    return PlayerState::Running;
 }
 

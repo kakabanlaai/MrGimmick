@@ -61,8 +61,8 @@ namespace Define
         Waterfall12 = 221,
     };
 
-    const float PLAYER_MAX_JUMP_VELOCITY = 350.0f; 
-    const float PLAYER_MIN_JUMP_VELOCITY = -350.0f;
+    const float PLAYER_MAX_JUMP_VELOCITY = -350.0f; 
+    const float PLAYER_MIN_JUMP_VELOCITY = 350.0f;
     const float PLAYER_MAX_RUNNING_SPEED = 150.0f; 
     const float PLAYER_BOTTOM_RANGE_FALLING = 8.0f; 
     const float PLAYER_RUN_ACCELERATOR = 5.0f;
