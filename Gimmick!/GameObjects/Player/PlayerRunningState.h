@@ -1,12 +1,7 @@
 #pragma once
 #include "PlayerState.h"
-#include "PlayerStandingState.h"
-#include "PlayerFallingState.h"
-#include "PlayerJumpingState.h"
 #include "Player.h"
 #include "../../GameComponents/GameTime.h"
-#include "../../GameDefines/GameDefine.h"
-#include "../../GameComponents/GameLog.h"
 
 class PlayerRunningState : public PlayerState
 {
@@ -21,6 +16,8 @@ public:
     virtual StateName GetState();
 
 protected:
+    //do bien tien van toc sau moi frame tinh bang pixel / s
+    float acceleratorX;
     bool noPressed;
 };
 
