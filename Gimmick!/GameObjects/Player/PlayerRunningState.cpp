@@ -1,18 +1,10 @@
 #include "PlayerRunningState.h"
-#include "PlayerStandingState.h"
-#include "PlayerFallingState.h"
-#include "PlayerJumpingState.h"
-#include "../../GameDefines/GameDefine.h"
-#include "../../GameComponents/GameLog.h"
 
-PlayerRunningState::PlayerRunningState(PlayerData* playerData)
+using namespace Define;
+
+PlayerRunningState::PlayerRunningState(PlayerData *playerData)
 {
     this->mPlayerData = playerData;
-
-    acceleratorX = 25.0f;
-
-    this->mPlayerData->player->allowMoveLeft = true;
-    this->mPlayerData->player->allowMoveRight = true;
 }
 
 
@@ -24,44 +16,40 @@ void PlayerRunningState::HandleKeyboard(std::map<int, bool> keys)
 {
     if (keys[VK_RIGHT])
     {
-        if (mPlayerData->player->allowMoveRight)
+        if (mPlayerData->player->getMoveDirection() == Player::MoveToLeft)
         {
-            mPlayerData->player->SetReverse(false);
-
-            //di chuyen sang phai
-            if (this->mPlayerData->player->GetVx() < Define::PLAYER_MAX_RUNNING_SPEED)
+            //player dang di chuyen sang ben trai      
+            if (mPlayerData->player->GetVx() < 0)
             {
-                this->mPlayerData->player->AddVx(acceleratorX);
+                this->mPlayerData->player->AddVx(PLAYER_RUN_ACCELERATOR);
 
-                if (this->mPlayerData->player->GetVx() >= Define::PLAYER_MAX_RUNNING_SPEED)
+                if (mPlayerData->player->GetVx() >= 0)
                 {
-                    this->mPlayerData->player->SetVx(Define::PLAYER_MAX_RUNNING_SPEED);
+                    mPlayerData->player->SetState(new PlayerStandingState(this->mPlayerData));
+                    return;
                 }
             }
         }
-    }
-    else if (keys[VK_LEFT])
-    {
-        if (mPlayerData->player->allowMoveLeft)
+        else if (mPlayerData->player->getMoveDirection() == Player::MoveToRight)
         {
-            mPlayerData->player->SetReverse(true);
-
-            //di chuyen sang trai
-            if (this->mPlayerData->player->GetVx() > -Define::PLAYER_MAX_RUNNING_SPEED)
+            //player dang di chuyen sang phai   
+            if (mPlayerData->player->GetVx() > 0)
             {
-                this->mPlayerData->player->AddVx(-acceleratorX);
+                this->mPlayerData->player->AddVx(-PLAYER_RUN_ACCELERATOR);
 
-                if (this->mPlayerData->player->GetVx() < -Define::PLAYER_MAX_RUNNING_SPEED)
+                if (mPlayerData->player->GetVx() <= 0)
                 {
-                    this->mPlayerData->player->SetVx(-Define::PLAYER_MAX_RUNNING_SPEED);
+                    mPlayerData->player->SetState(new PlayerStandingState(this->mPlayerData));
+                    return;
                 }
             }
         }
-    }
-    else
-    {
-        this->mPlayerData->player->SetState(new PlayerStandingState(this->mPlayerData));
-        return;
+
+        if (mPlayerData->player->GetVx() == 0)
+        {
+            mPlayerData->player->SetState(new PlayerStandingState(this->mPlayerData));
+            return;
+        }
     }
 }
 
@@ -75,8 +63,7 @@ void PlayerRunningState::OnCollision(Entity* impactor, Entity::SideCollisions si
     case Entity::TopLeft:
     case Entity::Left:
     {
-        //va cham phia ben trai player
-        if (this->mPlayerData->player->getMoveDirection() == Player::MoveToLeft)
+        if (this->mPlayerData->player->GetVx() < 0) 
         {
             this->mPlayerData->player->allowMoveLeft = false;
             

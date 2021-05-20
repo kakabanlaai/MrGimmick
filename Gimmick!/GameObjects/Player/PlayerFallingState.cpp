@@ -1,22 +1,10 @@
 #include "PlayerFallingState.h"
-#include "PlayerStandingState.h"
-#include "Player.h"
-#include "../../GameDefines/GameDefine.h"
+
+using namespace Define;
 
 PlayerFallingState::PlayerFallingState(PlayerData* playerData)
 {
-    this->mPlayerData = playerData;
-    acceleratorY = 15.0f;
-    acceleratorX = 8.0f;
-
-    if (this->mPlayerData->player->GetVx() == 0)
-    {
-        allowMoveX = false;
-    }
-    else
-    {
-        allowMoveX = true;
-    }
+	this->mPlayerData = playerData;
 }
 
 
@@ -26,7 +14,7 @@ PlayerFallingState::~PlayerFallingState()
 
 void PlayerFallingState::Update(float dt)
 {
-    this->mPlayerData->player->AddVy(acceleratorY);
+	this->mPlayerData->player->AddVy(PLAYER_DECREASE_JUMP_ACCELERATOR_Y);
 
     if (mPlayerData->player->GetVy() > Define::PLAYER_MAX_JUMP_VELOCITY)
     {
@@ -40,11 +28,10 @@ void PlayerFallingState::HandleKeyboard(std::map<int, bool> keys)
     {
         mPlayerData->player->SetReverse(false);
 
-        isLeftOrRightKeyPressed = true;
-        //di chuyen sang phai
-        if (this->mPlayerData->player->GetVx() < Define::PLAYER_MAX_RUNNING_SPEED)
-        {
-            this->mPlayerData->player->AddVx(acceleratorX);
+		//di chuyen sang phai
+		if (this->mPlayerData->player->GetVx() < Define::PLAYER_MAX_RUNNING_SPEED)
+		{
+			this->mPlayerData->player->AddVx(PLAYER_JUMP_ACCELERATOR_X);
 
             if (this->mPlayerData->player->GetVx() >= Define::PLAYER_MAX_RUNNING_SPEED)
             {
@@ -56,11 +43,10 @@ void PlayerFallingState::HandleKeyboard(std::map<int, bool> keys)
     {
         mPlayerData->player->SetReverse(true);
 
-        isLeftOrRightKeyPressed = true;
-        //di chuyen sang trai
-        if (this->mPlayerData->player->GetVx() > -Define::PLAYER_MAX_RUNNING_SPEED)
-        {
-            this->mPlayerData->player->AddVx(-acceleratorX);
+		//di chuyen sang trai
+		if (this->mPlayerData->player->GetVx() > -Define::PLAYER_MAX_RUNNING_SPEED)
+		{
+			this->mPlayerData->player->AddVx(-PLAYER_JUMP_ACCELERATOR_X);
 
             if (this->mPlayerData->player->GetVx() <= -Define::PLAYER_MAX_RUNNING_SPEED)
             {

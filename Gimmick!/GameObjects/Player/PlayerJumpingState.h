@@ -1,6 +1,10 @@
 #pragma once
 #include "Player.h"
 #include "PlayerState.h"
+#include "PlayerStandingState.h"
+#include "PlayerFallingState.h"
+#include "../../GameDefines/GameDefine.h"
+#include "../../GameComponents/GameLog.h"
 
 class PlayerJumpingState : public PlayerState
 {
@@ -17,8 +21,8 @@ public:
     virtual StateName GetState();
 
 protected:
-    float acceleratorY;
-    float acceleratorX;
+    //do bien tien van toc sau moi frame tinh bang pixel / s
+    D3DXVECTOR3 standingPosition;
     bool noPressed;
     bool allowMoveRight, allowMoveLeft;
 };
