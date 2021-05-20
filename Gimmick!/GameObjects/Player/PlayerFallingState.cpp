@@ -72,7 +72,7 @@ void PlayerFallingState::OnCollision(Entity* impactor, Entity::SideCollisions si
         {
             this->mPlayerData->player->AddPosition(data.RegionCollision.right - data.RegionCollision.left, 0);
             this->mPlayerData->player->SetVx(0);
-            this->mPlayerData->player->SetVy(10);
+            this->mPlayerData->player->SetVy(-10);
         }
         break;
 
@@ -81,12 +81,12 @@ void PlayerFallingState::OnCollision(Entity* impactor, Entity::SideCollisions si
         {
             this->mPlayerData->player->AddPosition(-(data.RegionCollision.right - data.RegionCollision.left), 0);
             this->mPlayerData->player->SetVx(0);
-            this->mPlayerData->player->SetVy(10);
+            this->mPlayerData->player->SetVy(-10);
         }
         break;
 
     case Entity::Top:
-        this->mPlayerData->player->SetVy(50);
+        this->mPlayerData->player->SetVy(-50);
         break;
 
     case Entity::Bottom:
@@ -96,10 +96,9 @@ void PlayerFallingState::OnCollision(Entity* impactor, Entity::SideCollisions si
         this->mPlayerData->player->SetVy(0);
         if (data.RegionCollision.right - data.RegionCollision.left >= 8.0f)
         {
-            this->mPlayerData->player->AddPosition(0, -(data.RegionCollision.bottom - data.RegionCollision.top));
+            this->mPlayerData->player->AddPosition(0, (data.RegionCollision.bottom - data.RegionCollision.top));
 
-            this->mPlayerData->player->SetState(new PlayerRunningState(this->mPlayerData));
-            /*if (isLeftOrRightKeyPressed)
+            if (isLeftOrRightKeyPressed)
             {
                 this->mPlayerData->player->SetState(new PlayerRunningState(this->mPlayerData));
             }
@@ -111,12 +110,9 @@ void PlayerFallingState::OnCollision(Entity* impactor, Entity::SideCollisions si
         return;
 
     default:
-        this->mPlayerData->player->SetVy(10);
+        this->mPlayerData->player->SetVy(-10);
         break;
     }
 }
 
-PlayerState::StateName PlayerFallingState::GetState()
-{
-    return PlayerState::Falling;
-}
+

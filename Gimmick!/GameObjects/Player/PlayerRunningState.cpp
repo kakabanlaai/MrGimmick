@@ -8,8 +8,8 @@ PlayerRunningState::PlayerRunningState(PlayerData *playerData)
 }
 
 
-PlayerRunningState::~PlayerRunningState()
-{
+    this->mPlayerData->player->allowMoveLeft = true;
+    this->mPlayerData->player->allowMoveRight = true;
 }
 
 void PlayerRunningState::Update(float dt)
@@ -159,7 +159,3 @@ void PlayerRunningState::OnCollision(Entity* impactor, Entity::SideCollisions si
     }
 }
 
-PlayerState::StateName PlayerRunningState::GetState()
-{
-    return PlayerState::Running;
-}

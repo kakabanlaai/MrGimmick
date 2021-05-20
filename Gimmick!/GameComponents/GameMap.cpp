@@ -17,7 +17,7 @@ void GameMap::LoadMap(const char* filePath)
 {
     mMap = new Tmx::Map();
     mMap->ParseFile(filePath);
-
+    
     RECT r;
     r.left = 0;
     r.top = 0;
@@ -44,7 +44,7 @@ void GameMap::LoadMap(const char* filePath)
             //continue;
 
         //xac dinh layer Brick bi an di de tu do tao ra cac vien gach trong game, nhung vien gach khong phai la 1 physic static nos co the bi pha huy duoc
-
+        mapHeight = layer->GetHeight() * mMap->GetTileHeight();
         if (layer->GetName() == "Brick" || layer->GetName() == "coin")
         {
             for (size_t j = 0; j < mMap->GetNumTilesets(); j++)
@@ -79,8 +79,8 @@ void GameMap::LoadMap(const char* filePath)
                             bound.top = m * tileHeight;
                             bound.right = bound.left + tileWidth;
                             bound.bottom = bound.top + tileHeight;*/
-
-                            D3DXVECTOR3 position(n * tileWidth + tileWidth /2, m * tileHeight + tileHeight /2 , 0);
+                         
+                            D3DXVECTOR3 position(n * tileWidth + tileWidth /2,(layer->GetHeight()- m) * tileHeight - tileHeight /2 , 0);
 
                             Brick* brick = nullptr;
                             brick = new BrickNormal(position);
@@ -252,7 +252,7 @@ void GameMap::DrawAnimation(const Tmx::TileLayer *layer, D3DXVECTOR2 trans)
                 //wsprintfW(buffer, L"%d, %d, %d", tileID);
                 //MessageBoxW(nullptr, buffer, buffer, MB_OK);
 
-                D3DXVECTOR3 position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2, 0);
+                D3DXVECTOR3 position(n * tileWidth + tileWidth / 2,( layer->GetHeight()-m) * tileHeight - tileHeight / 2, 0);
 
                 if (mCamera != NULL)
                 {
@@ -267,7 +267,7 @@ void GameMap::DrawAnimation(const Tmx::TileLayer *layer, D3DXVECTOR2 trans)
                         continue;
                         
                 }
-                mListAnimation[(TypeAniMap1)(tileID + 1)]->Draw(position, RECT(), D3DXVECTOR2(), trans);
+                mListAnimation[(TypeAniMap1)(tileID + 1)]->Draw(mCamera->tranform(position.x,position.y), RECT(), D3DXVECTOR2(), trans);
             }
         }
     }
@@ -278,14 +278,14 @@ void GameMap::Draw()
     D3DXVECTOR2 trans = D3DXVECTOR2(GameGlobal::GetWidth() / 2 - mCamera->GetPosition().x,
                                     mCamera->GetHeight() / 2 - mCamera->GetPosition().y);
 
-
+    D3DXVECTOR2 TRAN = D3DXVECTOR2(0, 0);
     for (size_t i = 0; i < mMap->GetNumTileLayers(); i++)
     {
         const Tmx::TileLayer *layer = mMap->GetTileLayer(i);
 
         if (layer->GetName() == "ani")
         {
-            DrawAnimation(layer, trans);
+            DrawAnimation(layer,TRAN);
         }
 
         if (!layer->IsVisible())
@@ -326,7 +326,7 @@ void GameMap::Draw()
 
                     //tru tilewidth/2 va tileheight/2 vi Sprite ve o vi tri giua hinh anh cho nen doi hinh de cho
                     //dung toa do (0,0) cua the gioi thuc la (0,0) neu khong thi se la (-tilewidth/2, -tileheigth/2);
-                    D3DXVECTOR3 position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2, 0);
+                    D3DXVECTOR3 position(n * tileWidth + tileWidth / 2,mapHeight- m * tileHeight - tileHeight / 2, 0);
 
                     if (mCamera != NULL)
                     {
@@ -339,12 +339,14 @@ void GameMap::Draw()
                         //neu nam ngoai camera thi khong Draw
                         if (isContain(objRECT, mCamera->GetBound()) == false)
                             continue;
+                       
                     }
-
+              //      printf("Characters: %d %d \n", position.x, position.y);
                     sprite->SetWidth(tileWidth);
                     sprite->SetHeight(tileHeight);
+                    D3DXVECTOR3 position2 = mCamera->tranform(position.x, position.y);
+                    sprite->Draw(position2, sourceRECT, D3DXVECTOR2(),TRAN);
 
-                    sprite->Draw(position, sourceRECT, D3DXVECTOR2(), trans);
                 }
             }
         }

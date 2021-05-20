@@ -103,6 +103,12 @@ void PlayerJumpingState::HandleKeyboard(std::map<int, bool> keys)
     }
 }
 
+PlayerState::StateName PlayerJumpingState::GetState()
+{
+    return PlayerState::Jumping;
+}
+
+
 void PlayerJumpingState::OnCollision(Entity* impactor, Entity::SideCollisions side, Entity::CollisionReturn data)
 {
     switch (side)
@@ -138,7 +144,3 @@ void PlayerJumpingState::OnCollision(Entity* impactor, Entity::SideCollisions si
     }
 }
 
-PlayerState::StateName PlayerJumpingState::GetState()
-{
-    return PlayerState::Jumping;
-}

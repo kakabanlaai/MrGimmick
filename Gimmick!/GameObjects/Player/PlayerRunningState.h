@@ -14,6 +14,8 @@ public:
     PlayerRunningState(PlayerData* playerData);
     ~PlayerRunningState();
 
+    void Update(float dt);
+
     void HandleKeyboard(std::map<int, bool> keys);
 
     void Update(float dt);

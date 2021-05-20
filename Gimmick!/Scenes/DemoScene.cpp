@@ -30,9 +30,9 @@ void DemoScene::LoadContent()
    
     mPlayer = new Player();
     mPlayer->setCamera(mCamera);
-    mPlayer->SetPosition(GAME_SCREEN_WIDTH / 2, GAME_SCREEN_HEIGHT / 2-16);
+    mPlayer->SetPosition(300, 1000-16);
     
-    mCamera->SetPosition(mPlayer->GetPosition());
+    mCamera->SetPosition(mPlayer->GetPosition() );
    
     mMap->SetCamera(mCamera);
 
@@ -62,25 +62,25 @@ void DemoScene::Draw()
 
 void DemoScene::OnKeyDown(int keyCode)
 {
-    //if (keyCode == VK_LEFT)
-    //{
-    //    mCamera->SetPosition(mCamera->GetPosition() + D3DXVECTOR3(-32, 0, 0));
-    //}
+   /* if (keyCode == VK_LEFT)
+    {
+        mCamera->SetPosition(mCamera->GetPosition() + D3DXVECTOR3(-32, 0, 0));
+    }
 
-    //if (keyCode == VK_RIGHT)
-    //{
-    //    mCamera->SetPosition(mCamera->GetPosition() + D3DXVECTOR3(32, 0, 0));
-    //}
+    if (keyCode == VK_RIGHT)
+    {
+        mCamera->SetPosition(mCamera->GetPosition() + D3DXVECTOR3(32, 0, 0));
+    }
 
-    //if (keyCode == VK_UP)
-    //{
-    //    mCamera->SetPosition(mCamera->GetPosition() + D3DXVECTOR3(0, -32, 0));
-    //}
+    if (keyCode == VK_UP)
+    {
+        mCamera->SetPosition(mCamera->GetPosition() + D3DXVECTOR3(0, -32, 0));
+    }
 
-    //if (keyCode == VK_DOWN)
-    //{
-    //    mCamera->SetPosition(mCamera->GetPosition() + D3DXVECTOR3(0, 32, 0));
-    //}
+    if (keyCode == VK_DOWN)
+    {
+        mCamera->SetPosition(mCamera->GetPosition() + D3DXVECTOR3(0, 32, 0));
+    }*/
 
     keys[keyCode] = true;
     mPlayer->OnKeyPressed(keyCode);
