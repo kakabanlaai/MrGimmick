@@ -1,13 +1,10 @@
 #include "PlayerFallingState.h"
-#include "PlayerStandingState.h"
-#include "Player.h"
-#include "../../GameDefines/GameDefine.h"
+
+using namespace Define;
 
 PlayerFallingState::PlayerFallingState(PlayerData* playerData)
 {
 	this->mPlayerData = playerData;
-	acceleratorY = 30.0f;
-	acceleratorX = 2.5f;
 }
 
 
@@ -17,7 +14,7 @@ PlayerFallingState::~PlayerFallingState()
 
 void PlayerFallingState::Update(float dt)
 {
-	this->mPlayerData->player->AddVy(acceleratorY);
+	this->mPlayerData->player->AddVy(PLAYER_DECREASE_JUMP_ACCELERATOR_Y);
 
 	if (mPlayerData->player->GetVy() > Define::PLAYER_MAX_JUMP_VELOCITY)
 	{
@@ -42,7 +39,7 @@ void PlayerFallingState::HandleKeyboard(std::map<int, bool> keys)
 		//di chuyen sang phai
 		if (this->mPlayerData->player->GetVx() < Define::PLAYER_MAX_RUNNING_SPEED)
 		{
-			this->mPlayerData->player->AddVx(acceleratorX);
+			this->mPlayerData->player->AddVx(PLAYER_JUMP_ACCELERATOR_X);
 
 			if (this->mPlayerData->player->GetVx() >= Define::PLAYER_MAX_RUNNING_SPEED)
 			{
@@ -57,7 +54,7 @@ void PlayerFallingState::HandleKeyboard(std::map<int, bool> keys)
 		//di chuyen sang trai
 		if (this->mPlayerData->player->GetVx() > -Define::PLAYER_MAX_RUNNING_SPEED)
 		{
-			this->mPlayerData->player->AddVx(-acceleratorX);
+			this->mPlayerData->player->AddVx(-PLAYER_JUMP_ACCELERATOR_X);
 
 			if (this->mPlayerData->player->GetVx() <= -Define::PLAYER_MAX_RUNNING_SPEED)
 			{

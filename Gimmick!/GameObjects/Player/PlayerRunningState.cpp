@@ -1,15 +1,10 @@
 #include "PlayerRunningState.h"
-#include "PlayerStandingState.h"
-#include "PlayerFallingState.h"
-#include "PlayerJumpingState.h"
-#include "../../GameDefines/GameDefine.h"
-#include "../../GameComponents/GameLog.h"
+
+using namespace Define;
 
 PlayerRunningState::PlayerRunningState(PlayerData *playerData)
 {
     this->mPlayerData = playerData;
-    
-    acceleratorX = 5.0f;
 }
 
 
@@ -26,7 +21,7 @@ void PlayerRunningState::Update(float dt)
             //player dang di chuyen sang ben trai      
             if (mPlayerData->player->GetVx() < 0)
             {
-                this->mPlayerData->player->AddVx(acceleratorX);
+                this->mPlayerData->player->AddVx(PLAYER_RUN_ACCELERATOR);
 
                 if (mPlayerData->player->GetVx() >= 0)
                 {
@@ -40,7 +35,7 @@ void PlayerRunningState::Update(float dt)
             //player dang di chuyen sang phai   
             if (mPlayerData->player->GetVx() > 0)
             {
-                this->mPlayerData->player->AddVx(-acceleratorX);
+                this->mPlayerData->player->AddVx(-PLAYER_RUN_ACCELERATOR);
 
                 if (mPlayerData->player->GetVx() <= 0)
                 {
@@ -76,13 +71,13 @@ void PlayerRunningState::HandleKeyboard(std::map<int, bool> keys)
         mPlayerData->player->SetReverse(false);
 
         //di chuyen sang phai
-        if (this->mPlayerData->player->GetVx() < Define::PLAYER_MAX_RUNNING_SPEED)
+        if (this->mPlayerData->player->GetVx() < PLAYER_MAX_RUNNING_SPEED)
         {
-            this->mPlayerData->player->AddVx(acceleratorX);
+            this->mPlayerData->player->AddVx(PLAYER_RUN_ACCELERATOR);
 
-            if (this->mPlayerData->player->GetVx() >= Define::PLAYER_MAX_RUNNING_SPEED)
+            if (this->mPlayerData->player->GetVx() >= PLAYER_MAX_RUNNING_SPEED)
             {
-                this->mPlayerData->player->SetVx(Define::PLAYER_MAX_RUNNING_SPEED);
+                this->mPlayerData->player->SetVx(PLAYER_MAX_RUNNING_SPEED);
             }
         }
         noPressed = false;
@@ -97,13 +92,13 @@ void PlayerRunningState::HandleKeyboard(std::map<int, bool> keys)
         mPlayerData->player->SetReverse(true);
 
         //di chuyen sang trai
-        if (this->mPlayerData->player->GetVx() > -Define::PLAYER_MAX_RUNNING_SPEED)
+        if (this->mPlayerData->player->GetVx() > -PLAYER_MAX_RUNNING_SPEED)
         {
-            this->mPlayerData->player->AddVx(-acceleratorX);
+            this->mPlayerData->player->AddVx(-PLAYER_RUN_ACCELERATOR);
 
-            if (this->mPlayerData->player->GetVx() < -Define::PLAYER_MAX_RUNNING_SPEED)
+            if (this->mPlayerData->player->GetVx() < -PLAYER_MAX_RUNNING_SPEED)
             {
-                this->mPlayerData->player->SetVx(-Define::PLAYER_MAX_RUNNING_SPEED);
+                this->mPlayerData->player->SetVx(-PLAYER_MAX_RUNNING_SPEED);
             }
         }
         noPressed = false;
