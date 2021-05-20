@@ -1,7 +1,12 @@
 #include "PlayerState.h"
 
 
-PlayerState::PlayerState(PlayerData *playerData)
+void PlayerState::OnCollision(Entity* impactor, Entity::SideCollisions side, Entity::CollisionReturn data)
+{
+
+}
+
+PlayerState::PlayerState(PlayerData* playerData)
 {
     this->mPlayerData = playerData;
 }
