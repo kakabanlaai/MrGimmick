@@ -73,7 +73,7 @@ void PlayerFallingState::OnCollision(Entity* impactor, Entity::SideCollisions si
 {
     //lay phia va cham so voi player
     //GameCollision::SideCollisions side = GameCollision::getSideCollision(this->mPlayerData->player, data);
-
+ //    if (side == Entity::Bottom) {}
     switch (side)
     {
     case Entity::Left:
@@ -95,15 +95,16 @@ void PlayerFallingState::OnCollision(Entity* impactor, Entity::SideCollisions si
         break;
 
     case Entity::Top:
-        this->mPlayerData->player->SetVy(-50);
+        //this->mPlayerData->player->SetVy(-50);
         break;
 
-    case Entity::Bottom:
-
+    
+    case Entity::Bottom: 
     case Entity::BottomRight:
     case Entity::BottomLeft:
+ 
         this->mPlayerData->player->SetVy(0);
-        if (data.RegionCollision.right - data.RegionCollision.left >= 8.0f)
+        if (data.RegionCollision.right - data.RegionCollision.left <= 8.0f)
         {
             this->mPlayerData->player->AddPosition(0, (data.RegionCollision.bottom - data.RegionCollision.top));
 
@@ -116,6 +117,7 @@ void PlayerFallingState::OnCollision(Entity* impactor, Entity::SideCollisions si
                 this->mPlayerData->player->SetState(new PlayerRunningState(this->mPlayerData));
             }
         }
+    
         return;
 
     default:
