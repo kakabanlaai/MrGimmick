@@ -107,22 +107,22 @@ void GameMap::LoadMap(const char* filePath)
     for (size_t i = 0; i < mMap->GetNumObjectGroups(); i++)
     {
         const Tmx::ObjectGroup* objectGroup = mMap->GetObjectGroup(i);
+        if (objectGroup->GetName() == "brick") {
+            for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
+            {
+                //lay object group chu khong phai layer
+                //object group se chua nhung body
+                Tmx::Object* object = objectGroup->GetObjects().at(j);
 
-        for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
-        {
-            //lay object group chu khong phai layer
-            //object group se chua nhung body
-            Tmx::Object* object = objectGroup->GetObjects().at(j);
+                Entity* entity = new Entity();
+                entity->SetPosition(object->GetX() + object->GetWidth() / 2, mapHeight -
+                    (object->GetY() + object->GetHeight() / 2));
+                entity->SetWidth(object->GetWidth());
+                entity->SetHeight(object->GetHeight());
+                entity->Tag = Entity::EntityTypes::Static;
 
-            Entity* entity = new Entity();
-            entity->SetPosition( object->GetX() + object->GetWidth() / 2, mapHeight -
-                (object->GetY() + object->GetHeight() / 2));
-            object->GetPolygon()->GetPoint(0);
-            entity->SetWidth(object->GetWidth());
-            entity->SetHeight(object->GetHeight());
-            entity->Tag = Entity::EntityTypes::Static;
-
-            mQuadTree->insertEntity(entity);
+                mQuadTree->insertEntity(entity);
+            }
         }
     }
     
