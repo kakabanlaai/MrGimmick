@@ -1,7 +1,7 @@
 #include "Player.h"
 #include "PlayerStandingState.h"
 #include "PlayerJumpingState.h"
-
+#include "PlayerFallingState.h"
 Player::Player()
 {
     mAnimationStanding = new Animation("Resources/mario/standingright.png", 2, 1, 2, 0.8f);
@@ -12,7 +12,7 @@ Player::Player()
     this->mPlayerData->player = this;
     this->vx = 0;
     this->vy = 0;
-    this->SetState(new PlayerStandingState(this->mPlayerData));
+    this->SetState(new PlayerFallingState(this->mPlayerData));
 
     allowJump = true;
 }
@@ -22,7 +22,7 @@ Player::~Player()
 }
 
 void Player::Update(float dt)
-{    
+{   
     mCurrentAnimation->Update(dt);
 
     if (this->mPlayerData->state)
@@ -62,17 +62,36 @@ void Player::SetAllowJump(bool _allowJump)
     this->allowJump = _allowJump;
 }
 
+void Player::OnCollision(Entity* impactor, Entity::CollisionReturn data, Entity::SideCollisions side)
+{
+    this->mPlayerData->state->OnCollision(impactor, side, data);
+ }
+
+PlayerData* Player::getPlayerData()
+{
+    return this->mPlayerData;
+}
+
+void Player::OnNoCollisionWithBottom()
+{
+    if (mCurrentState != PlayerState::Jumping && mCurrentState != PlayerState::Falling)
+    {
+        this->SetState(new PlayerFallingState(this->mPlayerData));
+    }
+}
 
 
 void Player::Draw(D3DXVECTOR3 position, RECT sourceRect, D3DXVECTOR2 scale, D3DXVECTOR2 transform, float angle, D3DXVECTOR2 rotationCenter, D3DXCOLOR colorKey)
 {
     mCurrentAnimation->FlipVertical(mCurrentReverse);
-    mCurrentAnimation->SetPosition(this->GetPosition());
-
-    mCurrentAnimation->Draw(D3DXVECTOR3(posX, posY, 0));
+    mCurrentAnimation->SetPosition(mCamera->tranform(posX, posY));
+    D3DXVECTOR2 tran = D3DXVECTOR2(GameGlobal::GetWidth() / 2 - mCamera->GetPosition().x,
+        mCamera->GetHeight() / 2 - mCamera->GetPosition().y);
+    mCurrentAnimation->Draw();
+    //mCurrentAnimation->Draw(, sourceRect, scale, transform, angle, rotationCenter, colorKey);
 }
 
-void Player::SetState(PlayerState *newState)
+void Player::SetState(PlayerState* newState)
 {
     delete this->mPlayerData->state;
 
@@ -86,6 +105,7 @@ void Player::SetState(PlayerState *newState)
 RECT Player::GetBound()
 {
     RECT rect;
+    int temp = mCurrentAnimation->GetWidth();
     rect.left = this->posX - mCurrentAnimation->GetWidth() / 2;
     rect.right = rect.left + mCurrentAnimation->GetWidth();
     rect.top = this->posY - mCurrentAnimation->GetHeight() / 2;
@@ -98,21 +118,21 @@ void Player::changeAnimation(PlayerState::StateName state)
 {
     switch (state)
     {
-        case PlayerState::Running:
-            mCurrentAnimation = mAnimationRunning;
-            break;
+    case PlayerState::Running:
+        mCurrentAnimation = mAnimationRunning;
+        break;
 
-        case PlayerState::Standing:
-            mCurrentAnimation = mAnimationStanding;
-            break;
+    case PlayerState::Standing:
+        mCurrentAnimation = mAnimationStanding;
+        break;
 
-        case PlayerState::Falling:
-            mCurrentAnimation = mAnimationJumping;
-            break;
+    case PlayerState::Falling:
+        mCurrentAnimation = mAnimationJumping;
+        break;
 
-        case PlayerState::Jumping:
-            mCurrentAnimation = mAnimationJumping;
-            break;
+    case PlayerState::Jumping:
+        mCurrentAnimation = mAnimationJumping;
+        break;
     }
 
     this->width = mCurrentAnimation->GetWidth();
@@ -137,3 +157,7 @@ PlayerState::StateName Player::getState()
 {
     return mCurrentState;
 }
+void Player::setCamera(Camera* m) {
+    Player::mCamera = m;
+}
+

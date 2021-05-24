@@ -28,9 +28,9 @@ Entity::CollisionReturn GameCollision::RecteAndRect(RECT rect1, RECT rect2)
     //chon max right
     result.RegionCollision.right = rect1.right < rect2.right ? rect1.right : rect2.right;
     //chon min bottom
-    result.RegionCollision.bottom = rect1.bottom > rect2.bottom ? rect1.bottom : rect2.bottom;
+    result.RegionCollision.bottom = rect1.bottom < rect2.bottom ? rect1.bottom : rect2.bottom;
     //chon max top
-    result.RegionCollision.top = rect1.top < rect2.top ? rect1.top : rect2.top;
+    result.RegionCollision.top = rect1.top > rect2.top ? rect1.top : rect2.top;
 
     return result;
 }
@@ -138,7 +138,7 @@ Entity::SideCollisions GameCollision::getSideCollision(Entity* e1, Entity::Colli
     - neu vector chuan hoa co x < 0 => nam phia ben trai Entity
     */
 
-    if (vec.y < 0)
+    if (vec.y > 0)
     {
         //va cham phia ben tren
         //lay cos cua goc neu ma nam trong khoang goc 70 -> 110 thi va cham top
