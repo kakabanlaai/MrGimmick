@@ -27,7 +27,11 @@ public:
 
     enum EntityTypes
     {
+<<<<<<< Updated upstream
         None, Brick, Enemy, Mario, Static, BrickGoldNormal, BrickGold
+=======
+        None, Brick, Enemy, Mario, Static, BrickGoldNormal, BrickGoldEated,Ramp
+>>>>>>> Stashed changes
     };
 
     EntityTypes Tag; //Tag de nhan vien loai Entity
@@ -69,6 +73,13 @@ public:
     virtual D3DXVECTOR3 GetPosition();
 
     virtual void Update(float dt);
+<<<<<<< Updated upstream
+=======
+    virtual void setPosition_Y(int y);
+    //kiem soat viec va cham
+    //khi xay ra va cham voi 1 thuc the nao do thi ham nay se dc goi de xu ly
+    virtual void OnCollision(Entity* impactor, CollisionReturn data, SideCollisions side);
+>>>>>>> Stashed changes
 
 protected:
 
@@ -83,4 +94,5 @@ protected:
 
     //size cua entity
     float width, height;
+    
 };

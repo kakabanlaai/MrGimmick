@@ -12,6 +12,13 @@
 #include "GameGlobal.h"
 #include "../GameComponents/Camera.h"
 #include "../GameDefines/GameDefine.h"
+<<<<<<< Updated upstream
+=======
+#include "../QuadTree.h"
+#include "../Brick.h"
+#include "../BrickNormal.h"
+#include "../ramp.h"
+>>>>>>> Stashed changes
 
 class GameMap
 {

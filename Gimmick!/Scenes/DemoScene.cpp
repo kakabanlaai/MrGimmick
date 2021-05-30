@@ -27,8 +27,18 @@ void DemoScene::LoadContent()
     mMap = new GameMap(PATH_MAP1_TMX);
 
     mCamera = new Camera(GAME_SCREEN_WIDTH, GAME_SCREEN_HEIGHT);
+<<<<<<< Updated upstream
     mCamera->SetPosition(GAME_SCREEN_WIDTH / 2, GAME_SCREEN_HEIGHT / 2);
 
+=======
+   
+    mPlayer = new Player();
+    mPlayer->setCamera(mCamera);
+    mPlayer->SetPosition(1300, 1000-16);
+    
+    mCamera->SetPosition(mPlayer->GetPosition() );
+   
+>>>>>>> Stashed changes
     mMap->SetCamera(mCamera);
 
     mPlayer = new Player();
@@ -85,3 +95,100 @@ void DemoScene::OnKeyUp(int keyCode)
 void DemoScene::OnMouseDown(float x, float y)
 {
 }
+<<<<<<< Updated upstream
+=======
+
+void DemoScene::CheckCameraAndWorldMap()
+{
+    float x = int(mPlayer->GetPosition().x);
+    float y = int(mPlayer->GetPosition().y);
+    float z = int(mPlayer->GetPosition().z);
+    D3DXVECTOR3 temp = D3DXVECTOR3(x + x,y ,z + z);
+    mCamera->SetPosition(temp);
+
+    if (mCamera->GetBound().left < 0)
+    {
+        //vi position cua camera ma chinh giua camera
+        //luc nay o vi tri goc ben trai cua the gioi thuc
+        mCamera->SetPosition(mCamera->GetWidth() / 2, mCamera->GetPosition().y);
+    }
+
+    if (mCamera->GetBound().right > mMap->GetWidth())
+    {
+        //luc nay cham goc ben phai cua the gioi thuc
+        mCamera->SetPosition(mMap->GetWidth() - mCamera->GetWidth() / 2,
+            mCamera->GetPosition().y);
+    }
+
+    if (mCamera->GetBound().top < 0)
+    {
+        //luc nay cham goc tren the gioi thuc
+        mCamera->SetPosition(mCamera->GetPosition().x, mCamera->GetHeight() / 2);
+    }
+
+    if (mCamera->GetBound().bottom > mMap->GetHeight())
+    {
+        //luc nay cham day cua the gioi thuc
+        mCamera->SetPosition(mCamera->GetPosition().x,
+            mMap->GetHeight() - mCamera->GetHeight() / 2);
+    }
+}
+
+void DemoScene::checkCollision()
+{
+    /*su dung de kiem tra xem khi nao mario khong dung tren 1 object hoac
+    dung qua sat mep trai hoac phai cua object do thi se chuyen state la falling*/
+    int widthBottom = 0;
+    bool check=true;
+    bool check2 = true;
+    
+
+    vector<Entity*> listCollision; 
+
+    mMap->GetQuadTree()->getEntitiesCollideAble(listCollision, mPlayer);
+    int x = mMap->GetQuadTree()->getID();
+
+    for (size_t i = 0; i < listCollision.size(); i++)
+    {
+        Entity::CollisionReturn r = GameCollision::RecteAndRect(mPlayer->GetBound(),
+            listCollision.at(i)->GetBound());
+
+        if (r.IsCollided)
+        {
+            //lay phia va cham cua Entity so voi Player
+            Entity::SideCollisions sidePlayer = GameCollision::getSideCollision(mPlayer, r);
+
+            //lay phia va cham cua Player so voi Entity
+            Entity::SideCollisions sideImpactor = GameCollision::getSideCollision(listCollision.at(i), r);
+
+            //goi den ham xu ly collision cua Player va Entity
+            mPlayer->OnCollision(listCollision.at(i), r, sidePlayer);
+            listCollision.at(i)->OnCollision(mPlayer, r, sideImpactor);
+
+            //kiem tra neu va cham voi phia duoi cua Player 
+                if (listCollision.at(i)->Tag == Entity::EntityTypes::Ramp)
+                    check2 = false;
+                if ((sidePlayer == Entity::Bottom || sidePlayer == Entity::BottomLeft
+                    || sidePlayer == Entity::BottomRight))
+                {
+                    //kiem cha do dai ma mario tiep xuc phia duoi day
+                    int bot = r.RegionCollision.right - r.RegionCollision.left;
+                    check = false;
+                    if (bot > widthBottom)
+                        widthBottom = bot;
+                
+
+                }
+            
+        }
+        
+        
+    }
+
+    //OnNoCollisionWithBottomNeu mario dung ngoai mep thi luc nay cho mario rot xuong duoi dat    
+    if (widthBottom < Define::PLAYER_BOTTOM_RANGE_FALLING)
+    {
+        mPlayer->OnNoCollisionWithBottom();
+    }
+}
+>>>>>>> Stashed changes

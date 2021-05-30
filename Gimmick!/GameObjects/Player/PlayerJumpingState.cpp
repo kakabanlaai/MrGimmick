@@ -107,3 +107,48 @@ PlayerState::StateName PlayerJumpingState::GetState()
 {
     return PlayerState::Jumping;
 }
+<<<<<<< Updated upstream
+=======
+
+
+void PlayerJumpingState::OnCollision(Entity* impactor, Entity::SideCollisions side, Entity::CollisionReturn data)
+{
+    switch (side)
+    {
+    case Entity::Left:
+    {   
+        //this->mPlayerData->player->AddPosition(data.RegionCollision.right - data.RegionCollision.left, 0);
+        if (impactor->Tag == Entity::EntityTypes::Static)
+        this->mPlayerData->player->SetVx(0);
+        break;
+    }
+
+    case Entity::Right:
+    {
+        //this->mPlayerData->player->AddPosition(-(data.RegionCollision.right - data.RegionCollision.left), 0);
+        if(impactor->Tag==Entity::EntityTypes::Static)
+        this->mPlayerData->player->SetVx(0);
+        break;
+    }
+
+    case Entity::TopRight: case Entity::TopLeft: case Entity::Top:
+    {
+        //this->mPlayerData->player->AddPosition(0, data.RegionCollision.bottom - data.RegionCollision.top);
+        if (impactor->Tag == Entity::EntityTypes::Static)
+        this->mPlayerData->player->SetVy(-this->mPlayerData->player->GetVy());
+        break;
+    }
+
+    case Entity::BottomRight: case Entity::BottomLeft: case Entity::Bottom:
+    {
+        if (impactor->Tag == Entity::EntityTypes::Static)
+        this->mPlayerData->player->AddPosition(0, -(data.RegionCollision.bottom - data.RegionCollision.top -5.0f));
+        
+    }
+
+    default:
+        break;
+    }
+}
+
+>>>>>>> Stashed changes

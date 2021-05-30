@@ -15,6 +15,7 @@ Player::Player()
     this->SetState(new PlayerStandingState(this->mPlayerData));
 
     allowJump = true;
+    allowFalling = true;
 }
 
 Player::~Player()
@@ -62,6 +63,27 @@ void Player::SetAllowJump(bool _allowJump)
     this->allowJump = _allowJump;
 }
 
+<<<<<<< Updated upstream
+=======
+void Player::OnCollision(Entity* impactor, Entity::CollisionReturn data, Entity::SideCollisions side)
+{
+    if (impactor->Tag == Entity::EntityTypes::Ramp) allowFalling == false;
+    this->mPlayerData->state->OnCollision(impactor, side, data);
+ }
+
+PlayerData* Player::getPlayerData()
+{
+    return this->mPlayerData;
+}
+
+void Player::OnNoCollisionWithBottom()
+{
+    if (mCurrentState != PlayerState::Jumping && mCurrentState != PlayerState::Falling&& allowFalling)
+    {
+        this->SetState(new PlayerFallingState(this->mPlayerData));
+    }
+}
+>>>>>>> Stashed changes
 
 
 void Player::Draw(D3DXVECTOR3 position, RECT sourceRect, D3DXVECTOR2 scale, D3DXVECTOR2 transform, float angle, D3DXVECTOR2 rotationCenter, D3DXCOLOR colorKey)

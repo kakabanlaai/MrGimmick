@@ -2,7 +2,7 @@
 #include "PlayerData.h"
 #include "../Entity.h"
 #include <map>
-
+#include <math.h>
 class PlayerState
 {
 public:

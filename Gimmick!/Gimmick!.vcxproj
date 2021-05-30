@@ -182,6 +182,11 @@
     <ClCompile Include="MapReader\TmxTileOffset.cpp" />
     <ClCompile Include="MapReader\TmxTileset.cpp" />
     <ClCompile Include="MapReader\TmxUtil.cpp" />
+<<<<<<< Updated upstream
+=======
+    <ClCompile Include="QuadTree.cpp" />
+    <ClCompile Include="ramp.cpp" />
+>>>>>>> Stashed changes
     <ClCompile Include="Scenes\DemoScene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -229,6 +234,11 @@
     <ClInclude Include="MapReader\zlib.h" />
     <ClInclude Include="MapReader\zlib128-dll\include\zconf.h" />
     <ClInclude Include="MapReader\zlib128-dll\include\zlib.h" />
+<<<<<<< Updated upstream
+=======
+    <ClInclude Include="QuadTree.h" />
+    <ClInclude Include="ramp.h" />
+>>>>>>> Stashed changes
     <ClInclude Include="Scenes\DemoScene.h" />
   </ItemGroup>
   <ItemGroup>
