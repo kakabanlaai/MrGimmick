@@ -47,6 +47,9 @@ void ramp::OnCollision(Entity* impactor, Entity::CollisionReturn data, Entity::S
 
 
     if (impactor->GetVy() > 0) return;
+    
+   
+       
     // if (data.RegionCollision.right - data.RegionCollision.left < impactor->GetWidth() / 2) return;
 
     // float temp = temp = ramp::GetBound().top;
@@ -76,16 +79,19 @@ void ramp::OnCollision(Entity* impactor, Entity::CollisionReturn data, Entity::S
     //     impactor->SetPosition(impactor->GetPosition().x, temp + impactor->GetHeight() / 2);
          //----------------------------------------------------------------------------------------------------------//
 
-
-
-
-    float temp = temp = ramp::GetBound().top;
+    
+    
+   
+    float temp = ramp::GetBound().top;
+    //if (impactor->GetVy() < 0 &&impactor->GetBound().bottom>) return;
+    
     if (ramp::side == ramp::sideramp::Left)
 
     {
         switch (side)
         {
-            if (data.RegionCollision.right - data.RegionCollision.left < impactor->GetWidth() / 2) return;
+            if (data.RegionCollision.right - data.RegionCollision.left < impactor->GetWidth() / 2) 
+                return;
         case Entity::Left:
         {
 
@@ -96,7 +102,7 @@ void ramp::OnCollision(Entity* impactor, Entity::CollisionReturn data, Entity::S
         {     if (data.RegionCollision.right - data.RegionCollision.left < impactor->GetWidth() / 2) return;
         temp = ramp::GetBound().top + ramp::check(impactor->GetBound().left, impactor->GetPosition().y - impactor->GetHeight() / 2);
         if (impactor->GetBound().top < temp && impactor->GetVy() < 0) {
-            impactor->SetVy(0);
+           /* impactor->SetVy(0);*/
             if (temp > ramp::GetBound().bottom)
                 temp = ramp::GetBound().bottom;
             impactor->SetPosition(impactor->GetPosition().x, temp + impactor->GetHeight() / 2);
@@ -108,9 +114,10 @@ void ramp::OnCollision(Entity* impactor, Entity::CollisionReturn data, Entity::S
         {
 
             temp = ramp::GetBound().top + ramp::check(impactor->GetBound().left, impactor->GetPosition().y - impactor->GetHeight() / 2);
+          
             if (impactor->GetVy() < 0) {
-                if (impactor->GetBound().top < temp)
-                    impactor->SetVy(0);
+               /* if (impactor->GetBound().top < temp)
+                    impactor->SetVy(0);*/
                 if (temp > ramp::GetBound().bottom)
                     temp = ramp::GetBound().bottom;
                 impactor->SetPosition(impactor->GetPosition().x, temp + impactor->GetHeight() / 2);
@@ -127,7 +134,7 @@ void ramp::OnCollision(Entity* impactor, Entity::CollisionReturn data, Entity::S
         case Entity::BottomRight: case Entity::BottomLeft: case Entity::Bottom:
         {
 
-
+           // impactor->SetPosition(impactor->GetPosition().x, temp + impactor->GetHeight() / 2);
         }
 
         default:
@@ -147,8 +154,8 @@ void ramp::OnCollision(Entity* impactor, Entity::CollisionReturn data, Entity::S
                 temp = temp + ramp::check(impactor->GetBound().left, impactor->GetPosition().y - impactor->GetHeight() / 2);
 
                 impactor->SetPosition(impactor->GetPosition().x, temp + impactor->GetHeight() / 2);
-                if (impactor->GetVy() < 0)
-                    impactor->SetVy(0);
+              /*  if (impactor->GetVy() < 0)
+                    impactor->SetVy(0);*/
 
             }
 
@@ -164,6 +171,7 @@ void ramp::OnCollision(Entity* impactor, Entity::CollisionReturn data, Entity::S
     {
         switch (side)
         {
+
         case Entity::Left:
         {
             if (data.RegionCollision.right - data.RegionCollision.left < impactor->GetWidth() / 2 && impactor->GetVx() && impactor->GetVx() > 0) return;
@@ -174,10 +182,10 @@ void ramp::OnCollision(Entity* impactor, Entity::CollisionReturn data, Entity::S
             if (data.RegionCollision.right - data.RegionCollision.left > impactor->GetWidth() / 2) {
                 if (ramp::check(impactor->GetBound().right, impactor->GetPosition().y - impactor->GetHeight() / 2) >= 0.0);
                 temp = temp + ramp::check(impactor->GetBound().right, impactor->GetPosition().y - impactor->GetHeight() / 2);
-
+                this;
                 impactor->SetPosition(impactor->GetPosition().x, temp + impactor->GetHeight() / 2);
-                if (impactor->GetVy() < 0)
-                    impactor->SetVy(0);
+               /* if (impactor->GetVy() < 0)
+                    impactor->SetVy(0);*/
 
             }
 
@@ -194,7 +202,7 @@ void ramp::OnCollision(Entity* impactor, Entity::CollisionReturn data, Entity::S
             if (data.RegionCollision.right - data.RegionCollision.left < impactor->GetWidth() / 2) return;
             temp = ramp::GetBound().top + ramp::check(impactor->GetBound().right, impactor->GetPosition().y - impactor->GetHeight() / 2);
             if (impactor->GetBound().top < temp && impactor->GetVy() < 0) {
-                impactor->SetVy(0);
+               /* impactor->SetVy(0);*/
                 if (temp > ramp::GetBound().bottom)
                     temp = ramp::GetBound().bottom;
                 impactor->SetPosition(impactor->GetPosition().x, temp + impactor->GetHeight() / 2);
@@ -206,8 +214,8 @@ void ramp::OnCollision(Entity* impactor, Entity::CollisionReturn data, Entity::S
         {
             temp = ramp::GetBound().top + ramp::check(impactor->GetBound().right, impactor->GetPosition().y - impactor->GetHeight() / 2);
             if (impactor->GetVy() < 0) {
-                if (impactor->GetBound().top < temp)
-                    impactor->SetVy(0);
+                /*if (impactor->GetBound().top < temp)
+                    impactor->SetVy(0);*/
                 if (temp > ramp::GetBound().bottom)
                     temp = ramp::GetBound().bottom;
                 impactor->SetPosition(impactor->GetPosition().x, temp + impactor->GetHeight() / 2);
@@ -220,11 +228,7 @@ void ramp::OnCollision(Entity* impactor, Entity::CollisionReturn data, Entity::S
 
             }
 
-        case Entity::BottomRight: case Entity::BottomLeft: case Entity::Bottom:
-        {
-
-
-        }
+      
 
         default:
             break;
@@ -232,6 +236,7 @@ void ramp::OnCollision(Entity* impactor, Entity::CollisionReturn data, Entity::S
 
         }
     }
+   
 
 
 }

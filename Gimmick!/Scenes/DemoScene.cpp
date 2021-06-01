@@ -151,10 +151,12 @@ void DemoScene::checkCollision()
             listCollision.at(i)->GetBound());
 
         if (r.IsCollided)
-        {
+        {   
+           
+
             //lay phia va cham cua Entity so voi Player
             Entity::SideCollisions sidePlayer = GameCollision::getSideCollision(mPlayer, r);
-
+           
             //lay phia va cham cua Player so voi Entity
             Entity::SideCollisions sideImpactor = GameCollision::getSideCollision(listCollision.at(i), r);
 
@@ -163,14 +165,20 @@ void DemoScene::checkCollision()
             listCollision.at(i)->OnCollision(mPlayer, r, sideImpactor);
 
             //kiem tra neu va cham voi phia duoi cua Player 
-            if (sidePlayer == Entity::Bottom || sidePlayer == Entity::BottomLeft
-                || sidePlayer == Entity::BottomRight)
+            if ((sidePlayer == Entity::Bottom || sidePlayer == Entity::BottomLeft
+                || sidePlayer == Entity::BottomRight) )
             {
                 //kiem cha do dai ma mario tiep xuc phia duoi day
                 int bot = r.RegionCollision.right - r.RegionCollision.left;
                 
                 if (bot > widthBottom)
                     widthBottom = bot;
+            }
+            if (listCollision.at(i)->Tag == Entity::EntityTypes::Ramp) {
+                int bot = r.RegionCollision.right - r.RegionCollision.left;
+                if (bot > widthBottom)
+                    widthBottom = bot;
+              
             }
         }
         
