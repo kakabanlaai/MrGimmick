@@ -30,7 +30,7 @@ void DemoScene::LoadContent()
    
     mPlayer = new Player();
     mPlayer->setCamera(mCamera);
-    mPlayer->SetPosition(300, 1000-16);
+    mPlayer->SetPosition(1500, 1000-16);
     
     mCamera->SetPosition(mPlayer->GetPosition() );
    
