@@ -47,7 +47,10 @@ void DemoScene::Update(float dt)
     mPlayer->HandleKeyboard(keys);
     mPlayer->Update(dt);
     mCamera->SetPosition(mPlayer->GetPosition());
-   
+    int cameraWidth = mCamera->GetWidth();
+    if (mCamera->GetBound().left < 0) mCamera->SetPosition(mCamera->GetWidth() / 2, mCamera->GetPosition().y);
+    if (mCamera->GetBound().top < 0) mCamera->SetPosition(mCamera->GetPosition().x, mCamera->GetHeight() / 2);
+
     //mCamera->SetPosition(mPlayer->GetPosition());
    
    

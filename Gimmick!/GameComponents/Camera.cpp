@@ -24,7 +24,7 @@ D3DXVECTOR3  Camera::tranform(float x, float y) {
     D3DXVECTOR3 Pos3(x, y,1);
     D3DXVECTOR4 Pos4;
       D3DXVec3Transform(&Pos4, &Pos3, &matrix);
-      D3DXVECTOR3 result = D3DXVECTOR3(Pos4.x, Pos4.y,0.0);
+      D3DXVECTOR3 result = D3DXVECTOR3((int)Pos4.x,(int) Pos4.y,0.0);
       return result;
 
 }

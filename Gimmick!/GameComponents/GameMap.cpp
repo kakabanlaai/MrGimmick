@@ -319,9 +319,9 @@ void GameMap::Draw()
         int tileWidth = mMap->GetTileWidth();
         int tileHeight = mMap->GetTileHeight();
 
-        for (size_t m = 0; m < layer->GetHeight(); m++)
+        for (int m = (mapHeight -mCamera->GetBound().bottom)/tileHeight; m < (mapHeight - mCamera->GetBound().top)/tileHeight+1; m++)
         {
-            for (size_t n = 0; n < layer->GetWidth(); n++)
+            for (int n = mCamera->GetBound().left/tileWidth; n < mCamera->GetBound().right/tileWidth+1; n++)
             {
                 int tilesetIndex = layer->GetTileTilesetIndex(n, m);
 
@@ -349,19 +349,7 @@ void GameMap::Draw()
                     //dung toa do (0,0) cua the gioi thuc la (0,0) neu khong thi se la (-tilewidth/2, -tileheigth/2);
                     D3DXVECTOR3 position(n * tileWidth + tileWidth / 2,mapHeight- m * tileHeight - tileHeight / 2, 0);
 
-                    if (mCamera != NULL)
-                    {
-                        RECT objRECT;
-                        objRECT.left = position.x - tileWidth / 2;
-                        objRECT.top = position.y - tileHeight / 2;
-                        objRECT.right = objRECT.left + tileWidth;
-                        objRECT.bottom = objRECT.top + tileHeight;
-
-                        //neu nam ngoai camera thi khong Draw
-                        if (isContain(objRECT, mCamera->GetBound()) == false)
-                            continue;
-                       
-                    }
+                    
               //      printf("Characters: %d %d \n", position.x, position.y);
                     sprite->SetWidth(tileWidth);
                     sprite->SetHeight(tileHeight);
