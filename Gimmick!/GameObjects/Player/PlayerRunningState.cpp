@@ -126,6 +126,7 @@ void PlayerRunningState::OnCollision(Entity* impactor, Entity::SideCollisions si
     //lay phia va cham so voi player
     //GameCollision::SideCollisions side = GameCollision::getSideCollision(this->mPlayerData->player, data);
     if (impactor->Tag == Entity::EntityTypes::Ramp) return;
+
     switch (side)
     {
     case Entity::Left:

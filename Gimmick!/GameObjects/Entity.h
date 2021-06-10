@@ -32,7 +32,7 @@ public:
 
     enum EntityTypes
     {
-        None, Brick, Enemy, Mario, Static, BrickGoldNormal, BrickGoldEated,Ramp
+        None, Brick, Enemy, Mario, Static, BrickGoldNormal, BrickGoldEated, Ramp, Slider
     };
 
     EntityTypes Tag; //Tag de nhan vien loai Entity

@@ -144,6 +144,23 @@ void GameMap::LoadMap(const char* filePath)
                 mQuadTree->insertEntity(entity);
             }
         }
+        if (objectGroup->GetName() == "slider") 
+        {
+            for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
+            {
+                Tmx::Object* object = objectGroup->GetObjects().at(j);
+
+                Entity* entity = new Entity();
+                entity->SetPosition(object->GetX() + object->GetWidth() / 2, mapHeight -
+                    (object->GetY() + object->GetHeight() / 2));
+                entity->SetWidth(object->GetWidth());
+                entity->SetHeight(object->GetHeight());
+                entity->Tag = Entity::EntityTypes::Slider;
+
+                mQuadTree->insertEntity(entity);
+
+            }
+        }
     }
     
 #pragma endregion

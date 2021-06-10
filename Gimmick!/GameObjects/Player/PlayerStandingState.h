@@ -8,7 +8,7 @@ public:
     ~PlayerStandingState();
 
     void HandleKeyboard(std::map<int, bool> keys);
-
+    
     virtual StateName GetState();
 
 protected:
