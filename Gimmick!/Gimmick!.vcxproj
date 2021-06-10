@@ -147,8 +147,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GameObjects\MapObjects\Brick.cpp" />
-    <ClCompile Include="BrickNormal.cpp" />
-    <ClCompile Include="GameCollision.cpp" />
+    <ClCompile Include="GameObjects\MapObjects\BrickNormal.cpp" />
+    <ClCompile Include="GameComponents\GameCollision.cpp" />
     <ClCompile Include="GameComponents\Animation.cpp" />
     <ClCompile Include="GameComponents\Camera.cpp" />
     <ClCompile Include="GameComponents\Game.cpp" />
@@ -196,8 +196,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\MapObjects\Brick.h" />
-    <ClInclude Include="BrickNormal.h" />
-    <ClInclude Include="GameCollision.h" />
+    <ClInclude Include="GameObjects\MapObjects\BrickNormal.h" />
+    <ClInclude Include="GameComponents\GameCollision.h" />
     <ClInclude Include="GameComponents\Animation.h" />
     <ClInclude Include="GameComponents\Camera.h" />
     <ClInclude Include="GameComponents\Game.h" />

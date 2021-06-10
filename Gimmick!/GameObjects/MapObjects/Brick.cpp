@@ -1,5 +1,5 @@
 #include "Brick.h"
-#include "GameComponents/GameGlobal.h"
+#include "../../GameComponents/GameGlobal.h"
 
 
 Brick::Brick()

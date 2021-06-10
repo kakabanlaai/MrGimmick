@@ -159,12 +159,6 @@
     <ClCompile Include="GameComponents\GameLog.cpp">
       <Filter>FrameWork\GameComponents</Filter>
     </ClCompile>
-    <ClCompile Include="GameCollision.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BrickNormal.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GameObjects\MapObjects\GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -178,6 +172,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameObjects\MapObjects\Slider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\MapObjects\BrickNormal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameComponents\GameCollision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -317,12 +317,6 @@
     <ClInclude Include="GameObjects\Entity.h">
       <Filter>FrameWork\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="GameCollision.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BrickNormal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameObjects\MapObjects\GameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -336,6 +330,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameObjects\MapObjects\Slider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\MapObjects\BrickNormal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameComponents\GameCollision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

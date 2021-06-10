@@ -1,5 +1,5 @@
 #include "Entity.h"
-#include "../GameCollision.h"
+#include "../GameComponents/GameCollision.h"
 
 Entity::Entity()
 {

@@ -12,9 +12,9 @@
 #include "GameGlobal.h"
 #include "../GameComponents/Camera.h"
 #include "../GameDefines/GameDefine.h"
-#include "../QuadTree.h"
-#include "../Brick.h"
-#include "../BrickNormal.h"
+#include "../GameComponents/QuadTree.h"
+#include "../GameObjects/MapObjects/Brick.h"
+#include "../GameObjects/MapObjects/BrickNormal.h"
 
 
 class GameMap

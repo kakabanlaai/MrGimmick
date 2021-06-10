@@ -1,5 +1,5 @@
 ﻿#include "GameMap.h"
-#include "../ramp.h"
+#include "../GameObjects/MapObjects/ramp.h"
 using namespace Define;
 
 GameMap::GameMap(const char* filePath)

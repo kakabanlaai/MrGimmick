@@ -4,8 +4,8 @@
 #include <d3d9.h>
 #include <vector>
 #include "GameCollision.h"
-#include "GameComponents/Camera.h"
-#include "GameObjects/Entity.h"
+#include "../GameComponents/Camera.h"
+#include "../GameObjects/Entity.h"
 
 class QuadTree
 {
