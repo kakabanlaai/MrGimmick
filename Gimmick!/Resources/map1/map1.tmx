@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.6.0" orientation="orthogonal" renderorder="right-down" width="128" height="48" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="166">
+<map version="1.5" tiledversion="1.6.0" orientation="orthogonal" renderorder="right-down" width="128" height="48" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="174">
  <tileset firstgid="1" name="tileset-platformer" tilewidth="32" tileheight="32" tilecount="322" columns="14">
   <image source="Resources/map1/tileset_map1.png" width="448" height="736"/>
  </tileset>
- <layer id="4" name="ani" width="128" height="48" visible="0" locked="1">
+ <layer id="4" name="ani" width="128" height="48" locked="1">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,95,96,95,96,95,96,95,96,95,96,95,96,95,96,95,96,95,96,95,96,95,96,95,96,95,96,95,96,95,96,95,0,0,0,95,96,95,0,0,0,95,96,95,96,95,96,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,109,110,109,110,109,110,109,110,109,110,109,110,109,110,0,0,109,110,109,110,109,110,109,110,109,110,109,110,109,110,109,110,109,110,109,110,109,110,109,110,109,110,109,110,109,110,109,0,0,0,109,110,109,0,0,0,109,110,109,110,109,110,0,
@@ -55,7 +55,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="5" name="brick" visible="0">
+ <objectgroup id="5" name="brick">
   <object id="2" x="0" y="0" width="352" height="32"/>
   <object id="3" x="0" y="32" width="32" height="736"/>
   <object id="4" x="32" y="288" width="320" height="64"/>
@@ -189,7 +189,7 @@
   <object id="147" x="832" y="608" width="32" height="32"/>
   <object id="148" x="1984" y="480" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="8" name="ramp" visible="0">
+ <objectgroup id="8" name="ramp">
   <object id="153" x="960" y="704">
    <polygon points="0,0 64,0 64,-32"/>
   </object>
@@ -202,8 +202,17 @@
   <object id="156" x="1344" y="672">
    <polygon points="0,0 0,32 64,32"/>
   </object>
-  <object id="158" x="1599.99" y="704.183">
+  <object id="158" x="1600" y="704">
    <polygon points="0,0 128.296,0 128.296,-64.1212"/>
+  </object>
+  <object id="170" x="1824" y="1024">
+   <polygon points="0,0 95.9324,0 95.9324,-95.7576"/>
+  </object>
+  <object id="171" x="1536" y="1087.88">
+   <polygon points="0,0 63.9324,0 63.9324,-63.7576"/>
+  </object>
+  <object id="173" x="1184" y="992">
+   <polygon points="0,0 0,96.5 191.5,96.5"/>
   </object>
  </objectgroup>
  <objectgroup id="9" name="slider">
