@@ -1,5 +1,5 @@
 #include "DemoScene.h"
-#include "../GameObjects/Player/PlayerFallingState.h"
+//#include "../GameObjects/Player/PlayerFallingState.h"
 using namespace Define;
 
 DemoScene::DemoScene()
@@ -29,13 +29,16 @@ void DemoScene::LoadContent()
     mCamera = new Camera(GAME_SCREEN_WIDTH, GAME_SCREEN_HEIGHT);
    
     mPlayer = new Player();
+    mBot = new Bot();
     mPlayer->setCamera(mCamera);
-    mPlayer->SetPosition(1500, 1000-16);
-    
+    mPlayer->SetPosition(100, 1000-16);
+    mBot->SetPosition(200, 1000 - 16);
+    mBot->setCamera(mCamera);
     mCamera->SetPosition(mPlayer->GetPosition() );
    
     mMap->SetCamera(mCamera);
 
+    mMiniBoss = new MiniBoss(mPlayer, mCamera);
   
 
 }
@@ -47,6 +50,12 @@ void DemoScene::Update(float dt)
     mPlayer->HandleKeyboard(keys);
     mPlayer->Update(dt);
     mCamera->SetPosition(mPlayer->GetPosition());
+
+    mBot->HandleKeyboard(keys);
+    mBot->Update(dt);
+
+    mMiniBoss->Update(dt);
+
     int cameraWidth = mCamera->GetWidth();
     if (mCamera->GetBound().left < 0) mCamera->SetPosition(mCamera->GetWidth() / 2, mCamera->GetPosition().y);
     if (mCamera->GetBound().top < 0) mCamera->SetPosition(mCamera->GetPosition().x, mCamera->GetHeight() / 2);
@@ -63,6 +72,9 @@ void DemoScene::Draw()
     mMap->Draw();
     mBlackBoard->Draw();
     mPlayer->Draw();
+    mBot->Draw();
+    mMiniBoss->Draw();
+
 }
 
 void DemoScene::OnKeyDown(int keyCode)
@@ -89,12 +101,14 @@ void DemoScene::OnKeyDown(int keyCode)
 
     keys[keyCode] = true;
     mPlayer->OnKeyPressed(keyCode);
+    mBot->OnKeyPressed(keyCode);
 }
 
 void DemoScene::OnKeyUp(int keyCode)
 {
     keys[keyCode] = false;
     mPlayer->OnKeyUp(keyCode);
+    mBot->OnKeyUp(keyCode);
 }
 
 void DemoScene::OnMouseDown(float x, float y)
@@ -146,6 +160,7 @@ void DemoScene::checkCollision()
     vector<Entity*> listCollision; 
 
     mMap->GetQuadTree()->getEntitiesCollideAble(listCollision, mPlayer);
+    
     int x = mMap->GetQuadTree()->getID();
 
     for (size_t i = 0; i < listCollision.size(); i++)
@@ -193,4 +208,55 @@ void DemoScene::checkCollision()
     {
         mPlayer->OnNoCollisionWithBottom();
     }
+
+    mMap->GetQuadTree()->getEntitiesCollideAble(listCollision, mBot);
+
+    x = mMap->GetQuadTree()->getID();
+
+    for (size_t i = 0; i < listCollision.size(); i++)
+    {
+        Entity::CollisionReturn r = GameCollision::RecteAndRect(mBot->GetBound(),
+            listCollision.at(i)->GetBound());
+
+        if (r.IsCollided)
+        {
+
+
+            //lay phia va cham cua Entity so voi Player
+            Entity::SideCollisions sidePlayer = GameCollision::getSideCollision(mBot, r);
+
+            //lay phia va cham cua Player so voi Entity
+            Entity::SideCollisions sideImpactor = GameCollision::getSideCollision(listCollision.at(i), r);
+
+            //goi den ham xu ly collision cua Player va Entity
+            mBot->OnCollision(listCollision.at(i), r, sidePlayer);
+            listCollision.at(i)->OnCollision(mBot, r, sideImpactor);
+
+            //kiem tra neu va cham voi phia duoi cua Player 
+            if ((sidePlayer == Entity::Bottom || sidePlayer == Entity::BottomLeft
+                || sidePlayer == Entity::BottomRight))
+            {
+                //kiem cha do dai ma mario tiep xuc phia duoi day
+                int bot = r.RegionCollision.right - r.RegionCollision.left;
+
+                if (bot > widthBottom)
+                    widthBottom = bot;
+            }
+            if (listCollision.at(i)->Tag == Entity::EntityTypes::Ramp) {
+                int bot = r.RegionCollision.right - r.RegionCollision.left;
+                if (bot > widthBottom)
+                    widthBottom = bot;
+
+            }
+        }
+
+
+    }
+
+    //OnNoCollisionWithBottomNeu mario dung ngoai mep thi luc nay cho mario rot xuong duoi dat    
+    if (widthBottom < Define::PLAYER_BOTTOM_RANGE_FALLING)
+    {
+        mBot->OnNoCollisionWithBottom();
+    }
+
 }

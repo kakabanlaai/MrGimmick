@@ -12,6 +12,8 @@
 #include "../GameComponents/Camera.h"
 #include "../GameDefines/GameDefine.h"
 #include "../GameObjects/Player/Player.h"
+#include "../GameObjects/MiniBoss/MiniBoss.h"
+#include "../GameObjects/Bot/Bot.h"
 
 class DemoScene : public Scene
 {
@@ -32,6 +34,9 @@ protected:
     Camera* mCamera;
     Sprite* mBlackBoard;
     Player* mPlayer;
+    Bot* mBot;
+    //Bot** bot;
+    MiniBoss* mMiniBoss;
 
     float mTimeCounter;
 

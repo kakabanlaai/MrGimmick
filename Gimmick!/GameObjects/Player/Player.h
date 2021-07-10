@@ -9,7 +9,6 @@
 #include "PlayerData.h"
 #include "PlayerState.h"
 #include "PlayerRunningState.h"
-#include"../../GameComponents/Camera.h";
 class Player : public Entity
 {
 public:

@@ -157,6 +157,7 @@ PlayerState::StateName Player::getState()
 {
     return mCurrentState;
 }
+
 void Player::setCamera(Camera* m) {
     Player::mCamera = m;
 }
