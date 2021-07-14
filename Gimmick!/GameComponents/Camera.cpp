@@ -1,12 +1,14 @@
 #include "Camera.h"
-
+Camera* Camera::mCamera = NULL;
 
 Camera::Camera(int width, int height)
 {
-    mWidth = width ;
-    mHeight = height ;
+    mWidth = width;
+    mHeight = height;
 
     mPosition = D3DXVECTOR3(0, 0, 0);
+
+
 }
 
 
@@ -40,6 +42,14 @@ RECT Camera::GetBound()
     bound.bottom = bound.top + mHeight;
 
     return bound;
+}
+
+Camera* Camera::GetInstance(int width, int height)
+{
+    if (mCamera == NULL) {
+        mCamera = new Camera(width, height);
+    }
+    return mCamera;
 }
 
 int Camera::GetWidth()

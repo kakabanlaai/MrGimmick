@@ -159,7 +159,7 @@ void GameMap::DrawAnimation(const Tmx::TileLayer *layer, D3DXVECTOR2 trans)
 
                 D3DXVECTOR3 position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2, 0);
 
-                if (mCamera != NULL)
+                if (Camera::GetInstance(Define::GAME_SCREEN_WIDTH, Define::GAME_SCREEN_HEIGHT) != NULL)
                 {
                     RECT objRECT;
                     objRECT.left = position.x - tileWidth / 2;
@@ -168,7 +168,7 @@ void GameMap::DrawAnimation(const Tmx::TileLayer *layer, D3DXVECTOR2 trans)
                     objRECT.bottom = objRECT.top + tileHeight;
                     
                     //neu nam ngoai camera thi khong Draw
-                    if (isContain(objRECT, mCamera->GetBound()) == false)
+                    if (isContain(objRECT, Camera::GetInstance(Define::GAME_SCREEN_WIDTH, Define::GAME_SCREEN_HEIGHT)->GetBound()) == false)
                         continue;
                         
                 }
@@ -180,8 +180,8 @@ void GameMap::DrawAnimation(const Tmx::TileLayer *layer, D3DXVECTOR2 trans)
 
 void GameMap::Draw()
 {
-    D3DXVECTOR2 trans = D3DXVECTOR2(GameGlobal::GetWidth() / 2 - mCamera->GetPosition().x,
-                                    mCamera->GetHeight() / 2 - mCamera->GetPosition().y);
+    D3DXVECTOR2 trans = D3DXVECTOR2(GameGlobal::GetWidth() / 2 - Camera::GetInstance(Define::GAME_SCREEN_WIDTH, Define::GAME_SCREEN_HEIGHT)->GetPosition().x,
+                                    GameGlobal::GetHeight() / 2 - Camera::GetInstance(Define::GAME_SCREEN_WIDTH, Define::GAME_SCREEN_HEIGHT)->GetPosition().y);
 
 
     for (size_t i = 0; i < mMap->GetNumTileLayers(); i++)
@@ -233,7 +233,7 @@ void GameMap::Draw()
                     //dung toa do (0,0) cua the gioi thuc la (0,0) neu khong thi se la (-tilewidth/2, -tileheigth/2);
                     D3DXVECTOR3 position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2, 0);
 
-                    if (mCamera != NULL)
+                    if (Camera::GetInstance(Define::GAME_SCREEN_WIDTH, Define::GAME_SCREEN_HEIGHT) != NULL)
                     {
                         RECT objRECT;
                         objRECT.left = position.x - tileWidth / 2;
@@ -242,7 +242,7 @@ void GameMap::Draw()
                         objRECT.bottom = objRECT.top + tileHeight;
 
                         //neu nam ngoai camera thi khong Draw
-                        if (isContain(objRECT, mCamera->GetBound()) == false)
+                        if (isContain(objRECT, Camera::GetInstance(Define::GAME_SCREEN_WIDTH, Define::GAME_SCREEN_HEIGHT)->GetBound()) == false)
                             continue;
                     }
 
@@ -256,10 +256,10 @@ void GameMap::Draw()
     }    
 }
 
-void GameMap::SetCamera(Camera * camera)
-{
-    this->mCamera = camera;
-}
+//void GameMap::SetCamera(Camera * camera)
+//{
+//    this->mCamera = camera;
+//}
 
 void GameMap::Update(float dt)
 {

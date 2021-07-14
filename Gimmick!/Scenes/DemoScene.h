@@ -28,7 +28,7 @@ public:
 
 protected:
     GameMap* mMap;
-    Camera* mCamera;
+    //Camera* mCamera;
     Sprite* mBlackBoard;
     Player* mPlayer;
 

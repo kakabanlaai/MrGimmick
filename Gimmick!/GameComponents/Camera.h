@@ -5,8 +5,14 @@
 
 class Camera
 {
-public:
+private:
+    static Camera* mCamera;
     Camera(int width, int height);
+    int             mWidth,
+                    mHeight;
+
+    D3DXVECTOR3     mPosition;
+public:
 
     //center of camera
     void SetPosition(float x, float y);
@@ -15,15 +21,12 @@ public:
     int GetWidth();
     int GetHeight();
 
+    static Camera* GetInstance(int width, int height);
+
     D3DXVECTOR3 GetPosition();    
     RECT GetBound();
 
     ~Camera();
 
-private:
-    int             mWidth,
-                    mHeight;
-
-    D3DXVECTOR3     mPosition;
 };
 

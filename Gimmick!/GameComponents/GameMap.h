@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef __GAME_MAP__
 #define __GAME_MAP__
 
@@ -18,7 +18,7 @@ class GameMap
 public:
     GameMap(const char* filePath);
 
-    Tmx::Map* GetMap();
+    Tmx::Map* GetMap();     //Chứa toàn bộ thông tin của Map
 
     int GetWidth();
     int GetHeight();
@@ -28,7 +28,7 @@ public:
     void LoadMap1Animation();
     void DrawAnimation(const Tmx::TileLayer *layer, D3DXVECTOR2 trans);
 
-    void SetCamera(Camera *camera);
+    //void SetCamera(Camera *camera);
 
     void Update(float dt);
 
@@ -43,7 +43,7 @@ private:
 
     Tmx::Map                        *mMap;
     std::map<int, Sprite*>          mListTileset;
-    Camera *mCamera;
+    //Camera *mCamera;
     std::map<int, Animation*> mListAnimation;
 };
 
