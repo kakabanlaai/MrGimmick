@@ -27,7 +27,7 @@ void DemoScene::LoadContent()
     mMap = new GameMap(PATH_MAP1_TMX);
 
     //mCamera = mCamera;
-    mCamera->SetPosition(GAME_SCREEN_WIDTH / 2, GAME_SCREEN_HEIGHT / 2);
+    mCamera->SetPosition(GAME_SCREEN_WIDTH / 2, mMap->GetHeight() - GAME_SCREEN_HEIGHT / 2);
 
     //mMap->SetCamera(mCamera);
 

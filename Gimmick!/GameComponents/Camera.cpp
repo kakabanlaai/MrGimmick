@@ -38,8 +38,8 @@ RECT Camera::GetBound()
 
     bound.left = mPosition.x - mWidth / 2;
     bound.right = bound.left + mWidth;;
-    bound.top = mPosition.y - mHeight / 2;
-    bound.bottom = bound.top + mHeight;
+    bound.top = mPosition.y + mHeight / 2;
+    bound.bottom = bound.top - mHeight;
 
     return bound;
 }

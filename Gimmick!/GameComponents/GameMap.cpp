@@ -19,9 +19,9 @@ void GameMap::LoadMap(const char* filePath)
 
     RECT r;
     r.left = 0;
-    r.top = 0;
+    r.top = this->GetHeight();
     r.right = this->GetWidth();
-    r.bottom = this->GetHeight();
+    r.bottom = 0;
 
     for (size_t i = 0; i < mMap->GetNumTilesets(); i++)
     {
@@ -36,7 +36,7 @@ void GameMap::LoadMap(const char* filePath)
 
 bool GameMap::isContain(RECT rect1, RECT rect2)
 {
-    if (rect1.left > rect2.right || rect1.right < rect2.left || rect1.top > rect2.bottom || rect1.bottom < rect2.top)
+    if (rect1.left > rect2.right || rect1.right < rect2.left || rect1.top < rect2.bottom || rect1.bottom > rect2.top)
     {
         return false;
     }
@@ -157,7 +157,7 @@ void GameMap::DrawAnimation(const Tmx::TileLayer *layer, D3DXVECTOR2 trans)
                 //wsprintfW(buffer, L"%d, %d, %d", tileID);
                 //MessageBoxW(nullptr, buffer, buffer, MB_OK);
 
-                D3DXVECTOR3 position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2, 0);
+                D3DXVECTOR3 position = D3DXVECTOR3(n * tileWidth + tileWidth / 2, (layer->GetHeight() - m) * tileHeight + tileHeight / 2, 0);
 
                 if (mCamera != NULL)
                 {
@@ -172,7 +172,7 @@ void GameMap::DrawAnimation(const Tmx::TileLayer *layer, D3DXVECTOR2 trans)
                         continue;
                         
                 }
-                mListAnimation[(TypeAniMap1)(tileID + 1)]->Draw(position, RECT(), D3DXVECTOR2(), trans);
+                mListAnimation[(TypeAniMap1)(tileID + 1)]->Draw(mCamera->Transform(position), RECT(), D3DXVECTOR2());
             }
         }
     }
@@ -231,7 +231,7 @@ void GameMap::Draw()
 
                     //tru tilewidth/2 va tileheight/2 vi Sprite ve o vi tri giua hinh anh cho nen doi hinh de cho
                     //dung toa do (0,0) cua the gioi thuc la (0,0) neu khong thi se la (-tilewidth/2, -tileheigth/2);
-                    D3DXVECTOR3 position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2, 0);
+                    D3DXVECTOR3 position = D3DXVECTOR3(n * tileWidth + tileWidth / 2, (layer->GetHeight() - m) * tileHeight + tileHeight / 2, 0);
 
                     if (mCamera != NULL)
                     {
@@ -249,7 +249,7 @@ void GameMap::Draw()
                     sprite->SetWidth(tileWidth);
                     sprite->SetHeight(tileHeight);
 
-                    sprite->Draw(position, sourceRECT, D3DXVECTOR2(), trans);
+                    sprite->Draw(mCamera->Transform(position), sourceRECT);
                 }
             }
         }
