@@ -28,7 +28,7 @@ public:
 
 protected:
     GameMap* mMap;
-    //Camera* mCamera;
+    Camera* mCamera = Camera::GetInstance(Define::GAME_SCREEN_WIDTH, Define::GAME_SCREEN_HEIGHT);
     Sprite* mBlackBoard;
     Player* mPlayer;
 

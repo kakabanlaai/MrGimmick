@@ -43,7 +43,7 @@ private:
 
     Tmx::Map                        *mMap;
     std::map<int, Sprite*>          mListTileset;
-    //Camera *mCamera;
+    Camera* mCamera = Camera::GetInstance(Define::GAME_SCREEN_WIDTH, Define::GAME_SCREEN_HEIGHT);
     std::map<int, Animation*> mListAnimation;
 };
 
