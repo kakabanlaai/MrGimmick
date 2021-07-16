@@ -21,6 +21,10 @@ public:
     int GetWidth();
     int GetHeight();
 
+    D3DXVECTOR3 Transform(float x, float y);
+    D3DXVECTOR3 Transform(D3DXVECTOR2 pos);
+    D3DXVECTOR3 Transform(D3DXVECTOR3 pos);
+
     static Camera* GetInstance(int width, int height);
 
     D3DXVECTOR3 GetPosition();    

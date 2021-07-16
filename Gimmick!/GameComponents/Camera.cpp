@@ -61,3 +61,24 @@ int Camera::GetHeight()
 {
     return mHeight;
 }
+D3DXVECTOR3 Camera::Transform(float x, float y)
+{
+    D3DXMATRIX matrix;
+    D3DXMatrixIdentity(&matrix);
+    matrix._22 = -1;
+    matrix._41 = -mPosition.x + this->mWidth / 2;
+    matrix._42 = mPosition.y + this->mHeight / 2;
+    D3DXVECTOR3 Pos3(x, y, 1);
+    D3DXVECTOR4 Pos4;
+    D3DXVec3Transform(&Pos4, &Pos3, &matrix);
+    D3DXVECTOR3 result = D3DXVECTOR3((int)Pos4.x, (int)Pos4.y, 0.0);
+    return result;
+}
+D3DXVECTOR3 Camera::Transform(D3DXVECTOR2 pos)
+{
+    return Transform(pos.x, pos.y);
+}
+D3DXVECTOR3 Camera::Transform(D3DXVECTOR3 pos)
+{
+    return Transform(pos.x, pos.y);
+}
